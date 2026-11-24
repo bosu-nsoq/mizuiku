@@ -1,5 +1,5 @@
 // ============================================================
-// Multi-App Cloud Backend (Google Apps Script)
+// Multi-App Cloud Backend (Google Apps Script) - High Reliability
 // Supports both Bosu Hub and Mizuiku (Water & Nature) Hub
 // Automatically creates folder 'Bosu' and spreadsheet 'Bosu_Database'
 // with separate sheets: 'Apps' for Bosu, 'Mizuiku_Apps' for Mizuiku
@@ -94,56 +94,7 @@ function getTargetSheet(ss, appName) {
   return sheet;
 }
 
-// Helper: Automatic Favicon Detection from URL HTML
-function detectFaviconFromUrl(targetUrl) {
-  if (!targetUrl) return '';
-  let url = targetUrl.trim();
-  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
-
-  try {
-    const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true });
-    const html = resp.getContentText();
-    
-    const linkMatch = html.match(/<link[^>]+rel=["'](?:shortcut\s+)?(?:apple-touch-)?icon["'][^>]*>/i)
-                   || html.match(/<link[^>]+(?:shortcut\s+)?(?:apple-touch-)?icon[^>]+rel=["'][^"']*["'][^>]*>/i);
-    
-    if (linkMatch) {
-      const hrefMatch = linkMatch[0].match(/href=["']([^"']+)["']/i);
-      if (hrefMatch && hrefMatch[1]) {
-        let href = hrefMatch[1].trim();
-        if (href.startsWith('//')) return 'https:' + href;
-        if (href.startsWith('http')) return href;
-        
-        // Handle relative URL
-        const base = url.split('?')[0].split('#')[0];
-        if (href.startsWith('/')) {
-          const originMatch = base.match(/^https?:\/\/[^\/]+/i);
-          return (originMatch ? originMatch[0] : '') + href;
-        }
-        const lastSlash = base.lastIndexOf('/');
-        const dir = lastSlash !== -1 ? base.substring(0, lastSlash + 1) : (base + '/');
-        return dir + href.replace(/^\.\//, '');
-      }
-    }
-
-    // Fallback: Check if targetUrl/favicon.ico exists
-    const originMatch = url.match(/^https?:\/\/[^\/]+/i);
-    if (originMatch) {
-      const fallbackIco = originMatch[0] + '/favicon.ico';
-      try {
-        const icoResp = UrlFetchApp.fetch(fallbackIco, { muteHttpExceptions: true });
-        if (icoResp.getResponseCode() === 200) {
-          return fallbackIco;
-        }
-      } catch (err) {}
-    }
-  } catch (e) {
-    Logger.log("detectFaviconFromUrl error for " + url + ": " + e);
-  }
-  return 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
-}
-
-// 3. Read All Apps from Sheet (Lock protected)
+// 3. Read All Apps from Sheet (Fast, Read-Only, No deadlocks)
 function getAppsFromSheet(appName) {
   const isMizuiku = (appName || '').toLowerCase() === 'mizuiku';
   const defaultApps = isMizuiku ? [] : DEFAULT_BOSU_APPS;
@@ -151,7 +102,8 @@ function getAppsFromSheet(appName) {
   const lock = LockService.getScriptLock();
   let hasLock = false;
   try {
-    hasLock = lock.tryLock(10000);
+    // Wait up to 5 seconds for any ongoing write to finish
+    hasLock = lock.tryLock(5000);
     const ss = getOrCreateDatabaseSpreadsheet();
     const sheet = getTargetSheet(ss, appName);
 
@@ -170,22 +122,14 @@ function getAppsFromSheet(appName) {
     const orderIdx = headers.indexOf("order");
 
     const apps = [];
-    let needsResave = false;
-
     for (let i = 1; i < data.length; i++) {
       const row = data[i];
       if (!row || (!row[idIdx] && !row[urlIdx])) continue;
       
-      let rawIcon = String(row[iconIdx] || '');
       const appUrl = String(row[urlIdx] || '');
-
-      // Auto-repair bad google s2 favicons
-      if ((!rawIcon || rawIcon.includes('google.com/s2')) && appUrl) {
-        const detected = detectFaviconFromUrl(appUrl);
-        if (detected) {
-          rawIcon = detected;
-          needsResave = true;
-        }
+      let rawIcon = String(row[iconIdx] || '');
+      if (!rawIcon) {
+        rawIcon = 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
       }
 
       apps.push({
@@ -200,15 +144,11 @@ function getAppsFromSheet(appName) {
     }
 
     apps.sort((a, b) => a.order - b.order);
-
-    if (needsResave && apps.length > 0) {
-      try { saveAppsToSheet(apps, appName); } catch (e) {}
-    }
-
-    return apps.length > 0 ? apps : defaultApps;
+    return apps;
   } catch (err) {
     Logger.log("getAppsFromSheet error: " + err);
-    return defaultApps;
+    // Return null on lock/read error so doGet knows it failed and doesn't wipe client cache!
+    return null;
   } finally {
     if (hasLock) {
       try { lock.releaseLock(); } catch (e) {}
@@ -230,20 +170,13 @@ function saveAppsToSheet(apps, appName) {
     
     const existingLastRow = sheet.getLastRow();
 
-    // Ensure all icons are populated
-    apps.forEach(app => {
-      if ((!app.icon || app.icon.includes('google.com/s2')) && app.url) {
-        app.icon = detectFaviconFromUrl(app.url);
-      }
-    });
-
     const rows = [
       ["id", "name", "url", "icon", "category", "active", "order", "updated_at"],
       ...apps.map((app, idx) => [
         app.id || ('app-' + (idx + 1)),
         app.name || '',
         app.url || '',
-        app.icon || '',
+        app.icon || 'https://i.postimg.cc/d01s2X3T/MIzuiku.png',
         app.category || 'ทั่วไป',
         app.active !== false,
         idx + 1,
@@ -262,6 +195,7 @@ function saveAppsToSheet(apps, appName) {
     SpreadsheetApp.flush();
     return { success: true, count: apps.length };
   } catch (e) {
+    Logger.log("saveAppsToSheet error: " + e);
     return { success: false, error: e.toString() };
   } finally {
     try { lock.releaseLock(); } catch (e) {}
@@ -270,25 +204,25 @@ function saveAppsToSheet(apps, appName) {
 
 // 5. HTTP GET Handler
 function doGet(e) {
-  const action = e && e.parameter && e.parameter.action;
+  const app = (e && e.parameter && e.parameter.app) || 'bosu';
   const callback = e && e.parameter && e.parameter.callback;
-
-  // Favicon detection helper endpoint
-  if (action === "detectFavicon") {
-    const url = e.parameter.url;
-    const favicon = detectFaviconFromUrl(url);
-    const out = { status: "success", favicon: favicon };
+  const apps = getAppsFromSheet(app);
+  
+  // If transient lock error occurred, return error status so client safely keeps its local cache!
+  if (apps === null) {
+    const errRes = {
+      status: "error",
+      message: "Database busy, keep local cache",
+      timestamp: Date.now()
+    };
     if (callback) {
-      return ContentService.createTextOutput(callback + "(" + JSON.stringify(out) + ");")
+      return ContentService.createTextOutput(callback + "(" + JSON.stringify(errRes) + ");")
         .setMimeType(ContentService.MimeType.JAVASCRIPT);
     }
-    return ContentService.createTextOutput(JSON.stringify(out))
+    return ContentService.createTextOutput(JSON.stringify(errRes))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
-  const app = (e && e.parameter && e.parameter.app) || 'bosu';
-  const apps = getAppsFromSheet(app);
-  
   const res = {
     status: "success",
     app: app,
@@ -326,7 +260,7 @@ function doPost(e) {
         })).setMimeType(ContentService.MimeType.JSON);
       }
 
-      const updatedApps = getAppsFromSheet(app);
+      const updatedApps = getAppsFromSheet(app) || body.apps || [];
       return ContentService.createTextOutput(JSON.stringify({
         status: "success",
         app: app,
@@ -338,7 +272,7 @@ function doPost(e) {
     }
 
     // Default action: getApps
-    const apps = getAppsFromSheet(app);
+    const apps = getAppsFromSheet(app) || [];
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
       app: app,

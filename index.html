@@ -1378,11 +1378,15 @@
       renderApps();
       initPwaEvents();
 
-      showLoader();
+      const existing = getStoredApps();
+      if (existing.length === 0) {
+        showLoader();
+      }
+
       try {
         await Promise.race([
           fetchAppsFromCloud(true),
-          new Promise(resolve => setTimeout(resolve, 2000))
+          new Promise(resolve => setTimeout(resolve, 2500))
         ]);
       } catch (err) {
         console.warn('Initial cloud sync error:', err);
@@ -1391,10 +1395,10 @@
       }
     });
 
-    // Background Auto-Sync: Poll every 4 seconds
+    // Background Auto-Sync: Poll every 8 seconds
     setInterval(() => {
       fetchAppsFromCloud(false);
-    }, 4000);
+    }, 8000);
 
     // Multi-Device Auto-Sync on Tab Focus & Visibility Change
     window.addEventListener('focus', () => fetchAppsFromCloud(false));
@@ -1523,25 +1527,20 @@
 
           if (data && data.status === 'success' && Array.isArray(data.data)) {
             const cloudApps = data.data;
-            const localJson = localStorage.getItem(STORAGE_KEY);
-            const cloudJson = JSON.stringify(cloudApps);
+            const currentLocal = getStoredApps();
 
-            // Auto-heal legacy google s2 favicon URLs
-            let healed = false;
-            for (const app of cloudApps) {
-              if (!app.icon || app.icon.includes('google.com/s2')) {
-                const detected = await autoDetectFavicon(app.url);
-                if (detected && detected !== app.icon) {
-                  app.icon = detected;
-                  healed = true;
-                }
-              }
+            // Safety guard: Never wipe existing local apps on an empty cloud poll
+            if (currentLocal.length > 0 && cloudApps.length === 0) {
+              console.warn('Safety guard: Cloud returned 0 apps while local cache has', currentLocal.length, 'apps. Ignoring empty cloud overwrite.');
+              return;
             }
 
-            if (localJson !== cloudJson || healed) {
-              localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudApps));
+            const localJson = JSON.stringify(currentLocal);
+            const cloudJson = JSON.stringify(cloudApps);
+
+            if (localJson !== cloudJson) {
+              localStorage.setItem(STORAGE_KEY, cloudJson);
               renderApps();
-              if (healed) saveAppsToCloud(cloudApps);
             } else if (forceRender) {
               renderApps();
             }
