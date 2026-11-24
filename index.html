@@ -33,9 +33,8 @@
       --bg-sky-mid: #E0F2FE;
       --bg-sky-bottom: #BAE6FD;
       
-      --bg-card: rgba(255, 255, 255, 0.94);
+      --bg-card: rgba(255, 255, 255, 0.96);
       --bg-card-hover: #FFFFFF;
-      --bg-card-glass: rgba(255, 255, 255, 0.85);
       
       --text-main: #0F172A; /* High-contrast slate navy */
       --text-sub: #0369A1; /* Ocean deep blue */
@@ -44,7 +43,7 @@
       --water-primary: #0284C7; /* Azure Blue */
       --water-vivid: #0EA5E9; /* Sky Water */
       --water-cyan: #38BDF8; /* Crystal Cyan */
-      --water-light: #E0F2FE; /* Soft Water tint */
+      --water-light: #E0F2FE;
       --nature-mint: #10B981;
       --sun-gold: #F59E0B;
       --danger: #EF4444;
@@ -53,8 +52,8 @@
       --border-hover: #0EA5E9;
       --glow-water: rgba(14, 165, 233, 0.22);
       
-      --shadow-water: 0 10px 25px -5px rgba(14, 165, 233, 0.10), 0 8px 10px -6px rgba(14, 165, 233, 0.05);
-      --shadow-hover: 0 20px 35px -8px rgba(14, 165, 233, 0.22), 0 0 20px 2px rgba(56, 189, 248, 0.22);
+      --shadow-water: 0 8px 20px -4px rgba(14, 165, 233, 0.12), 0 4px 8px -2px rgba(14, 165, 233, 0.06);
+      --shadow-hover: 0 16px 30px -6px rgba(14, 165, 233, 0.25), 0 0 16px 2px rgba(56, 189, 248, 0.22);
       
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -80,7 +79,7 @@
       padding-bottom: var(--safe-bottom);
     }
 
-    /* Ambient Water & Nature Background Light Glows */
+    /* Ambient Water Background Glows */
     .nature-bg-layer {
       position: fixed;
       inset: 0;
@@ -120,7 +119,6 @@
       100% { transform: translate(-25px, 40px) scale(0.95); }
     }
 
-    /* Bottom Animated Flowing Water Waves */
     .nature-waves {
       position: fixed;
       bottom: 0;
@@ -133,7 +131,7 @@
     }
 
     /* ============================================================
-       LOADING SCREEN OVERLAY (หน้าโหลดระหว่างทำงาน / Google Sheets)
+       LOADING SCREEN OVERLAY (ข้อความ: "กำลังโหลดข้อมูล")
        ============================================================ */
     .nature-loader-overlay {
       position: fixed;
@@ -148,7 +146,7 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: opacity 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .nature-loader-overlay.active {
@@ -161,16 +159,16 @@
       border: 1.5px solid var(--water-cyan);
       box-shadow: 0 16px 40px -8px rgba(14, 165, 233, 0.25), 0 0 30px rgba(56, 189, 248, 0.3);
       border-radius: 28px;
-      padding: 36px 40px;
+      padding: 32px 38px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
       max-width: 90vw;
-      width: 320px;
+      width: 290px;
       transform: scale(0.95);
-      transition: transform 0.3s ease;
+      transition: transform 0.25s ease;
     }
 
     .nature-loader-overlay.active .nature-loader-box {
@@ -179,9 +177,9 @@
 
     .loader-icon-container {
       position: relative;
-      width: 80px;
-      height: 80px;
-      margin-bottom: 20px;
+      width: 76px;
+      height: 76px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -206,8 +204,8 @@
     }
 
     .loader-logo-img {
-      width: 68px;
-      height: 68px;
+      width: 64px;
+      height: 64px;
       border-radius: 18px;
       object-fit: cover;
       box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35);
@@ -224,16 +222,10 @@
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--text-main);
-      margin-bottom: 6px;
-    }
-
-    .loader-subtext {
-      font-size: 0.8rem;
-      color: var(--text-sub);
     }
 
     /* ============================================================
-       HEADER (Single-Line on Mobile, Blue-White Theme)
+       HEADER (Strict Single-Line on Mobile, Brand Title Only, No Date)
        ============================================================ */
     header.mizuiku-header {
       position: sticky;
@@ -241,9 +233,9 @@
       z-index: 50;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.90);
       border-bottom: 1.5px solid rgba(56, 189, 248, 0.28);
-      padding: 10px 16px;
+      padding: 10px 18px;
       box-shadow: 0 4px 18px rgba(14, 165, 233, 0.08);
       transition: all 0.25s ease;
     }
@@ -257,7 +249,6 @@
       gap: 12px;
     }
 
-    /* Brand Section: strictly single-line white-space: nowrap on mobile */
     .brand-section {
       display: flex;
       align-items: center;
@@ -269,9 +260,9 @@
     }
 
     .brand-logo-wrap {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
       background: #FFFFFF;
       border: 1.5px solid var(--water-cyan);
       box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
@@ -296,8 +287,7 @@
 
     .brand-text-block {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
       white-space: nowrap;
     }
 
@@ -311,33 +301,11 @@
       line-height: 1.1;
     }
 
-    /* Header Tools */
     .header-tools {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: nowrap;
-    }
-
-    /* Thai Buddhist Era Date Badge */
-    .date-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: #FFFFFF;
-      border: 1px solid var(--border-water);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-sub);
-      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.08);
-      white-space: nowrap;
-    }
-
-    .date-badge i {
-      color: var(--water-vivid);
-      font-size: 0.85rem;
     }
 
     /* Admin Role Pill Button */
@@ -392,7 +360,6 @@
       background: var(--water-light);
       border-color: var(--water-vivid);
       color: var(--water-primary);
-      box-shadow: 0 0 12px var(--glow-water);
     }
 
     /* ============================================================
@@ -400,84 +367,35 @@
        ============================================================ */
     main.mizuiku-main {
       flex: 1;
-      max-width: 1280px;
+      max-width: 1200px;
       width: 100%;
       margin: 0 auto;
-      padding: 24px 16px 80px 16px;
+      padding: 20px 16px 80px 16px;
       position: relative;
       z-index: 1;
     }
 
-    /* Action Bar: Search & Add App (Clean, No Cloud button) */
-    .action-bar {
+    /* Admin Action Toolbar (Visible ONLY in Admin Mode) */
+    .admin-top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px dashed var(--border-water);
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
     }
 
-    .search-box-wrap {
-      position: relative;
-      flex: 1;
-      min-width: 240px;
-      max-width: 480px;
-    }
-
-    .search-box-wrap i.search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--water-vivid);
-      font-size: 0.95rem;
-      pointer-events: none;
-    }
-
-    .search-input {
-      width: 100%;
-      background: #FFFFFF;
-      border: 1.5px solid rgba(56, 189, 248, 0.4);
-      border-radius: 14px;
-      padding: 10px 38px 10px 38px;
-      color: var(--text-main);
-      font-size: 0.9rem;
-      outline: none;
-      box-shadow: 0 2px 10px rgba(14, 165, 233, 0.06);
-      transition: all 0.25s ease;
-    }
-
-    .search-input:focus {
-      border-color: var(--water-vivid);
-      box-shadow: 0 0 14px var(--glow-water);
-    }
-
-    .search-input::placeholder {
-      color: var(--text-muted);
-    }
-
-    .search-clear-btn {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: none;
-      font-size: 0.9rem;
-    }
-
-    .search-clear-btn:hover {
-      color: var(--text-main);
-    }
-
-    .top-action-buttons {
+    .admin-info-hint {
+      font-size: 0.82rem;
+      color: var(--text-sub);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
+      font-weight: 500;
     }
 
     .btn-water-primary {
@@ -487,121 +405,50 @@
       background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
       border: 1px solid #38BDF8;
       color: #FFFFFF;
-      padding: 10px 20px;
-      border-radius: 14px;
-      font-size: 0.9rem;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3);
       transition: all 0.2s ease;
       white-space: nowrap;
     }
 
     .btn-water-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.45);
+      box-shadow: 0 6px 18px rgba(14, 165, 233, 0.4);
       background: linear-gradient(135deg, #0369A1 0%, #0284C7 100%);
     }
 
     /* ============================================================
-       EMPTY STATE (Clean Water Welcome Card)
-       ============================================================ */
-    .empty-state-card {
-      background: rgba(255, 255, 255, 0.92);
-      border: 2px dashed rgba(56, 189, 248, 0.5);
-      border-radius: 26px;
-      padding: 50px 24px;
-      text-align: center;
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow-water);
-      max-width: 620px;
-      margin: 30px auto;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .empty-state-card:hover {
-      border-color: var(--water-vivid);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .empty-icon-wrap {
-      width: 88px;
-      height: 88px;
-      margin: 0 auto 20px auto;
-      border-radius: 24px;
-      background: #FFFFFF;
-      border: 2px solid var(--water-cyan);
-      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      animation: gentlePulse 3s infinite ease-in-out;
-    }
-
-    @keyframes gentlePulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(14, 165, 233, 0.2); }
-      50% { transform: scale(1.05); box-shadow: 0 10px 28px rgba(14, 165, 233, 0.35); }
-    }
-
-    .empty-icon-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .empty-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #0F172A;
-      margin-bottom: 8px;
-    }
-
-    .empty-desc {
-      font-size: 0.92rem;
-      color: var(--text-sub);
-      line-height: 1.6;
-      max-width: 440px;
-      margin: 0 auto 24px auto;
-    }
-
-    /* ============================================================
-       APPS GRID & APP CARDS (Bright White & Water Blue)
+       COMPACT APP LAUNCHER GRID (เน้น Icon และ Name ไม่กว้างเกินไป)
        ============================================================ */
     .apps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 150px));
+      gap: 20px 16px;
+      justify-content: center;
       margin-top: 10px;
     }
 
     .app-card {
       background: var(--bg-card);
       border: 1.5px solid var(--border-water);
-      border-radius: 22px;
-      padding: 20px;
-      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 16px 10px 14px 10px;
+      backdrop-filter: blur(10px);
       box-shadow: var(--shadow-water);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
       position: relative;
-      overflow: hidden;
-    }
-
-    .app-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3.5px;
-      background: linear-gradient(90deg, #38BDF8, #0284C7, #0D9488);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      user-select: none;
+      min-height: 135px;
     }
 
     .app-card:hover {
@@ -611,40 +458,45 @@
       background: var(--bg-card-hover);
     }
 
-    .app-card:hover::before {
-      opacity: 1;
-    }
-
     .app-card.maintenance-card {
-      opacity: 0.75;
-      border-color: rgba(245, 158, 11, 0.4);
+      opacity: 0.7;
+      border-color: rgba(245, 158, 11, 0.45);
     }
 
-    .app-card.maintenance-card::before {
-      background: linear-gradient(90deg, #F59E0B, #EF4444);
-      opacity: 1;
+    /* Drag & Drop Reorder Styles */
+    .app-card.is-dragging {
+      opacity: 0.45;
+      transform: scale(0.95);
+      border: 2px dashed var(--water-primary);
     }
 
-    /* Card Top Area */
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 14px;
+    .app-card.drag-over {
+      border: 2px solid var(--water-vivid);
+      box-shadow: 0 0 20px var(--glow-water);
+      transform: scale(1.05);
     }
 
+    /* Prominent App Icon */
     .app-icon-frame {
-      width: 58px;
-      height: 58px;
-      border-radius: 16px;
+      width: 66px;
+      height: 66px;
+      border-radius: 18px;
       background: #FFFFFF;
-      border: 1.5px solid var(--water-cyan);
-      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 6px 16px rgba(14, 165, 233, 0.18);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      margin-bottom: 10px;
+      position: relative;
+      transition: transform 0.25s ease;
       flex-shrink: 0;
+    }
+
+    .app-card:hover .app-icon-frame {
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(14, 165, 233, 0.28);
     }
 
     .app-icon-frame img {
@@ -657,157 +509,130 @@
     .app-icon-frame .fallback-icon {
       font-size: 1.6rem;
       color: var(--water-primary);
+      font-weight: 700;
     }
 
-    .app-info {
-      flex: 1;
-      min-width: 0;
+    /* Clean App Title (No Description, No Category) */
+    .app-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
+      max-width: 100%;
+      padding: 0 2px;
     }
 
-    .app-title-row {
+    /* Admin Action Buttons on Card */
+    .admin-card-actions {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      display: flex;
+      gap: 4px;
+      z-index: 5;
+    }
+
+    .admin-icon-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--border-water);
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text-sub);
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
+      justify-content: center;
+      font-size: 0.72rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
     }
 
-    .app-name {
-      font-size: 1.1rem;
+    .admin-icon-btn:hover {
+      background: var(--water-vivid);
+      color: #FFFFFF;
+      border-color: var(--water-vivid);
+      transform: scale(1.1);
+    }
+
+    .admin-icon-btn.del:hover {
+      background: var(--danger);
+      color: #FFFFFF;
+      border-color: var(--danger);
+    }
+
+    .drag-grip-indicator {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 20px;
+      height: 20px;
+      color: var(--water-cyan);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      opacity: 0.75;
+    }
+
+    .drag-grip-indicator:active {
+      cursor: grabbing;
+    }
+
+    /* ============================================================
+       EMPTY STATE
+       ============================================================ */
+    .empty-state-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px dashed rgba(56, 189, 248, 0.5);
+      border-radius: 26px;
+      padding: 45px 24px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-water);
+      max-width: 500px;
+      margin: 40px auto;
+      position: relative;
+    }
+
+    .empty-icon-wrap {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 16px auto;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 2px solid var(--water-cyan);
+      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .empty-icon-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .empty-title {
+      font-size: 1.3rem;
       font-weight: 700;
       color: #0F172A;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .app-category-badge {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: #E0F2FE;
-      color: #0369A1;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      border-radius: 8px;
-      padding: 2px 8px;
       margin-bottom: 6px;
     }
 
-    .app-status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--nature-mint);
-      box-shadow: 0 0 6px var(--nature-mint);
-    }
-
-    .status-dot.maintenance {
-      background: var(--sun-gold);
-      box-shadow: 0 0 6px var(--sun-gold);
-    }
-
-    /* Card Actions Footer */
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(56, 189, 248, 0.2);
-    }
-
-    .btn-open-app {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
-      border: 1px solid #38BDF8;
-      color: #FFFFFF;
-      padding: 9px 14px;
-      border-radius: 12px;
+    .empty-desc {
       font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-decoration: none;
-      box-shadow: 0 3px 10px rgba(14, 165, 233, 0.25);
-    }
-
-    .btn-open-app:hover {
-      background: linear-gradient(135deg, #0369A1 0%, #0284C7 100%);
-      box-shadow: 0 5px 16px rgba(14, 165, 233, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .btn-card-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      border: 1px solid var(--border-water);
-      background: #FFFFFF;
       color: var(--text-sub);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .btn-card-icon:hover {
-      background: #E0F2FE;
-      border-color: var(--water-vivid);
-      color: var(--water-primary);
-    }
-
-    /* Admin Quick Controls on Card */
-    .admin-card-bar {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 6px;
-      margin-top: 10px;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(56, 189, 248, 0.3);
-    }
-
-    .admin-pill-btn {
-      font-size: 0.74rem;
-      padding: 4px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border-water);
-      background: #FFFFFF;
-      color: var(--text-sub);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-
-    .admin-pill-btn:hover {
-      border-color: var(--water-vivid);
-      background: #F0F9FF;
-      color: var(--water-primary);
-    }
-
-    .admin-pill-btn.delete:hover {
-      border-color: var(--danger);
-      color: var(--danger);
-      background: #FEE2E2;
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
 
     /* ============================================================
@@ -829,14 +654,13 @@
       opacity: 1;
     }
 
-    /* Floating Island Toolbar in Viewer */
     .viewer-toolbar {
       position: absolute;
       top: 12px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 1010;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.95);
       border: 1.5px solid var(--water-cyan);
       box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3);
       border-radius: 30px;
@@ -895,7 +719,6 @@
     .viewer-btn:hover {
       background: var(--water-vivid);
       color: #FFFFFF;
-      box-shadow: 0 0 10px var(--glow-water);
     }
 
     .viewer-btn.close {
@@ -932,14 +755,14 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 14px;
       z-index: 5;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s ease;
     }
 
     .water-ripple-spinner {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       border: 3.5px solid rgba(56, 189, 248, 0.25);
       border-top-color: var(--water-vivid);
       border-radius: 50%;
@@ -952,7 +775,7 @@
     }
 
     /* ============================================================
-       MODALS (Bright Blue & White Glassmorphism)
+       MODAL: ADD / EDIT APP (Auto Favicon, No Category)
        ============================================================ */
     .modal-backdrop {
       position: fixed;
@@ -979,7 +802,7 @@
       box-shadow: 0 20px 50px -10px rgba(14, 165, 233, 0.35);
       border-radius: 26px;
       width: 100%;
-      max-width: 480px;
+      max-width: 440px;
       padding: 24px;
       position: relative;
       transform: scale(0.94);
@@ -1001,7 +824,7 @@
     }
 
     .modal-title {
-      font-size: 1.2rem;
+      font-size: 1.18rem;
       font-weight: 700;
       color: var(--text-main);
       display: flex;
@@ -1029,7 +852,6 @@
       color: var(--danger);
     }
 
-    /* Form Fields */
     .form-group {
       margin-bottom: 16px;
     }
@@ -1060,41 +882,35 @@
       background: #FFFFFF;
     }
 
-    .form-helper {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* Preset Icon Selectors */
-    .preset-icons-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .preset-icon-chip {
-      height: 42px;
-      border-radius: 10px;
-      border: 1px solid var(--border-water);
-      background: #F0F9FF;
+    .favicon-preview-wrap {
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1.25rem;
+      gap: 12px;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #F0F9FF;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+    }
+
+    .favicon-preview-img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #FFFFFF;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .favicon-preview-text {
+      font-size: 0.78rem;
       color: var(--text-sub);
-      transition: all 0.2s ease;
+      font-weight: 500;
     }
 
-    .preset-icon-chip:hover, .preset-icon-chip.active {
-      border-color: var(--water-vivid);
-      background: #E0F2FE;
-      box-shadow: 0 0 10px var(--glow-water);
-    }
-
-    /* PIN Keypad Grid */
+    /* ============================================================
+       PIN MODAL
+       ============================================================ */
     .pin-display-wrap {
       display: flex;
       justify-content: center;
@@ -1125,7 +941,7 @@
     }
 
     .pin-key {
-      height: 52px;
+      height: 50px;
       border-radius: 14px;
       border: 1.5px solid rgba(56, 189, 248, 0.35);
       background: #F8FAFC;
@@ -1144,7 +960,6 @@
       background: #E0F2FE;
       border-color: var(--water-vivid);
       color: var(--water-primary);
-      box-shadow: 0 0 12px var(--glow-water);
     }
 
     .pin-key:active {
@@ -1182,15 +997,11 @@
     }
 
     /* ============================================================
-       MOBILE RESPONSIVENESS (Strict Single-Line Header)
+       MOBILE RESPONSIVENESS
        ============================================================ */
     @media (max-width: 768px) {
       header.mizuiku-header {
         padding: 8px 12px;
-      }
-
-      .header-container {
-        gap: 8px;
       }
 
       .brand-title {
@@ -1198,16 +1009,12 @@
       }
 
       .brand-logo-wrap {
-        width: 36px;
-        height: 36px;
-      }
-
-      .date-badge {
-        display: none; /* Hide on small mobile to give room for brand & role */
+        width: 34px;
+        height: 34px;
       }
 
       .role-btn span.role-text {
-        display: none; /* Show icon only on small mobile */
+        display: none;
       }
 
       .role-btn {
@@ -1215,12 +1022,23 @@
       }
 
       .apps-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
+        grid-template-columns: repeat(auto-fill, minmax(105px, 130px));
+        gap: 16px 12px;
       }
 
-      .empty-state-card {
-        padding: 36px 18px;
+      .app-card {
+        padding: 14px 8px 12px 8px;
+        min-height: 125px;
+      }
+
+      .app-icon-frame {
+        width: 58px;
+        height: 58px;
+        border-radius: 15px;
+      }
+
+      .app-name {
+        font-size: 0.85rem;
       }
     }
   </style>
@@ -1238,8 +1056,8 @@
   </div>
 
   <!-- ============================================================
-       FULL SCREEN LOADER (หน้าโหลดระหว่างทำงาน / Google Sheets)
-       ============================================================ -->
+       FULL SCREEN LOADER (ข้อความ: "กำลังโหลดข้อมูล")
+       ============================================================ */ -->
   <div class="nature-loader-overlay active" id="mizuikuLoader">
     <div class="nature-loader-box">
       <div class="loader-icon-container">
@@ -1247,13 +1065,12 @@
         <div class="water-ripple-ring ring-2"></div>
         <img src="https://i.postimg.cc/d01s2X3T/MIzuiku.png" alt="Mizuiku" class="loader-logo-img">
       </div>
-      <div class="loader-text" id="loaderStatusText">กำลังโหลดข้อมูลระบบ...</div>
-      <div class="loader-subtext">เชื่อมโยงสายน้ำข้อมูล Google Sheets</div>
+      <div class="loader-text">กำลังโหลดข้อมูล</div>
     </div>
   </div>
 
   <!-- ============================================================
-       HEADER (Strict Single-Line on Mobile, Brand Title Only)
+       HEADER (Single-Line on Mobile, Brand Title Only, No Date)
        ============================================================ -->
   <header class="mizuiku-header">
     <div class="header-container">
@@ -1271,12 +1088,6 @@
       <!-- Right Header Tools -->
       <div class="header-tools">
         
-        <!-- Thai Buddhist Era Date -->
-        <div class="date-badge" id="thaiDateBadge" title="วันที่ตามปฏิทินไทย พ.ศ.">
-          <i class="bi bi-calendar3"></i>
-          <span id="dateDisplay">--/--/----</span>
-        </div>
-
         <!-- Admin Mode Switcher -->
         <button class="role-btn" id="roleBtn" onclick="toggleRole()" title="สลับโหมดผู้ดูแลระบบ">
           <i class="bi bi-shield-lock" id="roleIcon"></i>
@@ -1294,29 +1105,21 @@
   </header>
 
   <!-- ============================================================
-       MAIN CONTENT
+       MAIN CONTENT (No Search Bar, Clean App Launcher Layout)
        ============================================================ -->
   <main class="mizuiku-main">
     
-    <!-- Action Bar: Search & Add App (No Cloud Settings Button) -->
-    <section class="action-bar">
-      
-      <div class="search-box-wrap">
-        <i class="bi bi-search search-icon"></i>
-        <input type="text" class="search-input" id="searchInput" placeholder="ค้นหาเว็บแอป..." oninput="handleSearch(this.value)">
-        <button class="search-clear-btn" id="searchClearBtn" onclick="clearSearch()">
-          <i class="bi bi-x-circle-fill"></i>
-        </button>
+    <!-- Admin Top Action Toolbar (Visible ONLY in Admin Mode) -->
+    <div class="admin-top-bar" id="adminTopBar" style="display: none;">
+      <div class="admin-info-hint">
+        <i class="bi bi-grip-vertical" style="color: var(--water-primary); font-size: 1rem;"></i>
+        <span>โหมดจัดการระบบ (สามารถลากไอคอนเพื่อจัดเรียงลำดับแอปได้)</span>
       </div>
-
-      <div class="top-action-buttons">
-        <button class="btn-water-primary" onclick="openAddAppModal()">
-          <i class="bi bi-plus-lg"></i>
-          <span>เพิ่มเว็บแอป</span>
-        </button>
-      </div>
-
-    </section>
+      <button class="btn-water-primary" onclick="openAddAppModal()">
+        <i class="bi bi-plus-lg"></i>
+        <span>เพิ่มเว็บแอป</span>
+      </button>
+    </div>
 
     <!-- Apps Grid / Empty State -->
     <div id="appsContainer">
@@ -1330,9 +1133,7 @@
        ============================================================ -->
   <div class="viewer-overlay" id="viewerOverlay">
     
-    <!-- Floating Island Toolbar -->
     <div class="viewer-toolbar">
-      
       <div class="viewer-app-badge">
         <img id="viewerAppIcon" src="" alt="icon">
         <span class="viewer-app-title" id="viewerAppTitle">Web App</span>
@@ -1357,14 +1158,12 @@
       <button class="viewer-btn close" onclick="closeViewer()" title="ปิด">
         <i class="bi bi-x-lg"></i>
       </button>
-
     </div>
 
-    <!-- Iframe Container -->
     <div class="viewer-iframe-wrap">
       <div class="viewer-loading-screen" id="viewerLoader">
         <div class="water-ripple-spinner"></div>
-        <div style="font-size: 0.95rem; font-weight: 600; color: #0284C7;">กำลังเชื่อมต่อสายน้ำข้อมูล...</div>
+        <div style="font-size: 0.95rem; font-weight: 600; color: #0284C7;">กำลังโหลดข้อมูล</div>
       </div>
       <iframe class="viewer-iframe" id="viewerIframe" src="about:blank" allow="camera; microphone; geolocation; fullscreen; clipboard-read; clipboard-write;" onload="onIframeLoaded()"></iframe>
     </div>
@@ -1372,13 +1171,13 @@
   </div>
 
   <!-- ============================================================
-       MODAL: ADD / EDIT APP
+       MODAL: ADD / EDIT APP (Automatic Favicon Detection, No Category)
        ============================================================ -->
   <div class="modal-backdrop" id="appModal">
     <div class="modal-dialog">
       <div class="modal-header">
         <div class="modal-title" id="appModalTitle">
-          <i class="bi bi-flower1" style="color: var(--water-primary);"></i>
+          <i class="bi bi-plus-circle" style="color: var(--water-primary);"></i>
           <span>เพิ่มเว็บแอปใหม่</span>
         </div>
         <button class="modal-close-btn" onclick="closeAppModal()">
@@ -1396,33 +1195,10 @@
 
         <div class="form-group">
           <label class="form-label">URL ลิงก์เข้าใช้งาน *</label>
-          <input type="url" class="form-input" id="formAppUrl" placeholder="https://..." required>
-          <div class="form-helper">รองรับเว็บแอปทั่วไป, Google Apps Script หรือ GitHub Pages</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">หมวดหมู่</label>
-          <input type="text" class="form-input" id="formAppCategory" placeholder="เช่น การศึกษา, การเงิน, ทั่วไป" list="categoryPresets">
-          <datalist id="categoryPresets">
-            <option value="การศึกษา">
-            <option value="การเงินและบัญชี">
-            <option value="บันทึกข้อมูล">
-            <option value="เครื่องมือ">
-            <option value="สิ่งแวดล้อม">
-          </datalist>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">ไอคอนแอป (ใส่ URL หรือเลือกไอคอนธรรมชาติ)</label>
-          <input type="url" class="form-input" id="formAppIcon" placeholder="https://example.com/icon.png หรือเลือกด้านล่าง">
-          
-          <div class="preset-icons-grid" id="presetIconsGrid">
-            <div class="preset-icon-chip" onclick="selectPresetIcon('💧')">💧</div>
-            <div class="preset-icon-chip" onclick="selectPresetIcon('🌿')">🌿</div>
-            <div class="preset-icon-chip" onclick="selectPresetIcon('📚')">📚</div>
-            <div class="preset-icon-chip" onclick="selectPresetIcon('💰')">💰</div>
-            <div class="preset-icon-chip" onclick="selectPresetIcon('📊')">📊</div>
-            <div class="preset-icon-chip" onclick="selectPresetIcon('⚙️')">⚙️</div>
+          <input type="url" class="form-input" id="formAppUrl" placeholder="https://..." required oninput="previewAutoFavicon(this.value)">
+          <div class="favicon-preview-wrap" id="faviconPreviewWrap">
+            <img id="faviconPreviewImg" src="https://i.postimg.cc/d01s2X3T/MIzuiku.png" alt="Favicon" class="favicon-preview-img">
+            <div class="favicon-preview-text">ระบบจะดึง Favicon ของเว็บแอปให้อัตโนมัติ</div>
           </div>
         </div>
 
@@ -1435,7 +1211,7 @@
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 24px;">
-          <button type="button" class="btn-card-icon" style="flex: 1; width: auto; border-radius: 12px; font-weight: 600;" onclick="closeAppModal()">ยกเลิก</button>
+          <button type="button" class="btn-icon-circle" style="flex: 1; width: auto; border-radius: 12px; font-weight: 600;" onclick="closeAppModal()">ยกเลิก</button>
           <button type="submit" class="btn-water-primary" style="flex: 1.5; justify-content: center;">บันทึกข้อมูล</button>
         </div>
       </form>
@@ -1498,7 +1274,7 @@
        ============================================================ -->
   <script>
     // ============================================================
-    // STATE & CONFIGURATION (Google Sheets Automatic Sync)
+    // CONFIGURATION & STATE
     // ============================================================
     const STORAGE_KEY = 'mizuiku_apps_data_v2';
     const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbznuwVPbNJ-QZyKqpJayU2XAIpFrT-FhYzXqaSFyzDdYziPmZiNI-936rHR4oV6FVpT/exec';
@@ -1507,26 +1283,31 @@
 
     let currentRole = 'guest'; // 'guest' | 'admin'
     let enteredPin = '';
-    let searchQuery = '';
     let deferredPrompt = null;
     let currentViewerApp = null;
     let isFetchingCloud = false;
     let isSavingCloud = false;
 
+    // Drag & Drop state
+    let draggedAppId = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchActiveCard = null;
+    let touchActiveId = null;
+    let isDraggingTouch = false;
+
     // ============================================================
     // INITIALIZATION
     // ============================================================
     document.addEventListener('DOMContentLoaded', async () => {
-      initThaiDate();
       renderApps();
       initPwaEvents();
 
-      // Show splash loader on start and fetch latest from Google Sheets
-      showLoader('กำลังเชื่อมต่อข้อมูล Google Sheets...');
+      showLoader();
       try {
         await Promise.race([
           fetchAppsFromCloud(true),
-          new Promise(resolve => setTimeout(resolve, 2000)) // Fallback timeout if slow
+          new Promise(resolve => setTimeout(resolve, 2000))
         ]);
       } catch (err) {
         console.warn('Initial cloud sync error:', err);
@@ -1535,7 +1316,7 @@
       }
     });
 
-    // Background Auto-Sync: Poll every 4 seconds for instant multi-device updates
+    // Background Auto-Sync: Poll every 4 seconds
     setInterval(() => {
       fetchAppsFromCloud(false);
     }, 4000);
@@ -1549,12 +1330,10 @@
     });
 
     // ============================================================
-    // FULL SCREEN LOADER HELPERS (หน้าโหลดระหว่างทำงาน)
+    // LOADER HELPERS (ข้อความ: "กำลังโหลดข้อมูล")
     // ============================================================
-    function showLoader(message = 'กำลังโหลดข้อมูลระบบ...') {
+    function showLoader() {
       const loader = document.getElementById('mizuikuLoader');
-      const textEl = document.getElementById('loaderStatusText');
-      if (textEl) textEl.textContent = message;
       if (loader) loader.classList.add('active');
     }
 
@@ -1564,22 +1343,30 @@
     }
 
     // ============================================================
-    // THAI BUDDHIST ERA DATE (dd/mm/yyyy พ.ศ.)
+    // AUTOMATIC FAVICON EXTRACTOR
     // ============================================================
-    function initThaiDate() {
-      const dateEl = document.getElementById('dateDisplay');
-      if (!dateEl) return;
+    function extractFavicon(url) {
+      if (!url) return 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
+      try {
+        let trimmed = url.trim();
+        if (!/^https?:\/\//i.test(trimmed)) {
+          trimmed = 'https://' + trimmed;
+        }
+        const parsed = new URL(trimmed);
+        return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(parsed.origin)}&sz=128`;
+      } catch (e) {
+        return 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
+      }
+    }
 
-      const now = new Date();
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const yearBE = now.getFullYear() + 543;
-
-      dateEl.textContent = `${day}/${month}/${yearBE}`;
+    function previewAutoFavicon(val) {
+      const previewImg = document.getElementById('faviconPreviewImg');
+      if (!previewImg) return;
+      previewImg.src = extractFavicon(val);
     }
 
     // ============================================================
-    // DATA ACCESS: LOCAL STORAGE & GOOGLE SHEETS CLOUD
+    // DATA ACCESS: LOCAL STORAGE & GOOGLE SHEETS
     // ============================================================
     function getStoredApps() {
       try {
@@ -1598,7 +1385,6 @@
       return localStorage.getItem(ADMIN_PIN_KEY) || DEFAULT_PIN;
     }
 
-    // Read from Google Sheets in background
     async function fetchAppsFromCloud(forceRender = false) {
       if (isFetchingCloud || isSavingCloud) return;
       isFetchingCloud = true;
@@ -1629,7 +1415,6 @@
       }
     }
 
-    // Save to Google Sheets
     async function saveAppsToCloud(apps) {
       isSavingCloud = true;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(apps));
@@ -1660,22 +1445,42 @@
     }
 
     // ============================================================
-    // RENDER APPS GRID OR NATURE EMPTY STATE
+    // REORDER APPS (Admin Mode Drag & Drop)
+    // ============================================================
+    async function reorderApps(sourceId, targetId) {
+      let apps = getStoredApps();
+      const sourceIndex = apps.findIndex(a => a.id === sourceId);
+      const targetIndex = apps.findIndex(a => a.id === targetId);
+
+      if (sourceIndex === -1 || targetIndex === -1 || sourceIndex === targetIndex) return;
+
+      const [movedApp] = apps.splice(sourceIndex, 1);
+      apps.splice(targetIndex, 0, movedApp);
+
+      // Re-assign order indices
+      apps.forEach((a, idx) => { a.order = idx + 1; });
+
+      showLoader();
+      await saveAppsToCloud(apps);
+      hideLoader();
+      showToast('จัดเรียงลำดับแอปเรียบร้อยแล้ว');
+    }
+
+    // ============================================================
+    // RENDER APPS (Compact Icon + Name Launcher Layout)
     // ============================================================
     function renderApps() {
       const container = document.getElementById('appsContainer');
       const allApps = getStoredApps();
+      const isAdmin = currentRole === 'admin';
 
-      // Filter by search query
-      const filteredApps = allApps.filter(app => {
-        if (!searchQuery) return true;
-        const q = searchQuery.toLowerCase();
-        return (app.name && app.name.toLowerCase().includes(q)) ||
-               (app.category && app.category.toLowerCase().includes(q)) ||
-               (app.url && app.url.toLowerCase().includes(q));
-      });
+      // Update Admin Top Bar visibility
+      const adminTopBar = document.getElementById('adminTopBar');
+      if (adminTopBar) {
+        adminTopBar.style.display = isAdmin ? 'flex' : 'none';
+      }
 
-      // 1. If no apps at all in storage (Empty State)
+      // 1. Empty State
       if (allApps.length === 0) {
         container.innerHTML = `
           <div class="empty-state-card">
@@ -1684,104 +1489,80 @@
             </div>
             <div class="empty-title">ยินดีต้อนรับสู่ Mizuiku</div>
             <div class="empty-desc">
-              สายน้ำแห่งการเรียนรู้และการรวมศูนย์เว็บแอปของคุณ<br>
-              ยังไม่มีเว็บแอปในระบบ เริ่มต้นสร้างระบบนิเวศการทำงานของคุณได้ทันที
+              ${isAdmin 
+                ? 'ยังไม่มีเว็บแอปในระบบ เริ่มต้นสร้างระบบนิเวศการทำงานของคุณได้ทันที' 
+                : 'ยังไม่มีเว็บแอปในระบบ กรุณาเข้าสู่โหมดแอดมินเพื่อเพิ่มเว็บแอป'}
             </div>
-            <button class="btn-water-primary" onclick="openAddAppModal()" style="padding: 12px 28px; font-size: 0.95rem;">
-              <i class="bi bi-plus-circle-fill"></i>
-              <span>เพิ่มเว็บแอปแรกของคุณ</span>
-            </button>
+            ${isAdmin ? `
+              <button class="btn-water-primary" onclick="openAddAppModal()" style="padding: 10px 24px;">
+                <i class="bi bi-plus-circle-fill"></i>
+                <span>เพิ่มเว็บแอปแรกของคุณ</span>
+              </button>
+            ` : `
+              <button class="role-btn" onclick="toggleRole()" style="padding: 8px 20px; margin: 0 auto;">
+                <i class="bi bi-shield-lock"></i>
+                <span>เข้าสู่ระบบแอดมิน</span>
+              </button>
+            `}
           </div>
         `;
         return;
       }
 
-      // 2. If filtered search yields 0 results
-      if (filteredApps.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state-card" style="padding: 36px 20px;">
-            <i class="bi bi-search" style="font-size: 2.5rem; color: var(--water-primary); opacity: 0.6; margin-bottom: 12px; display: block;"></i>
-            <div class="empty-title" style="font-size: 1.15rem;">ไม่พบเว็บแอปที่ค้นหา</div>
-            <div class="empty-desc" style="font-size: 0.88rem; margin-bottom: 16px;">ลองค้นหาด้วยคำอื่น หรือกดล้างการค้นหา</div>
-            <button class="btn-card-icon" style="width: auto; padding: 8px 18px; margin: 0 auto; border-radius: 12px; font-weight: 600;" onclick="clearSearch()">ล้างการค้นหา</button>
-          </div>
-        `;
-        return;
-      }
+      // 2. Compact Grid of App Icons + Titles
+      let html = '<div class="apps-grid" id="appsGrid">';
 
-      // 3. Render Apps Grid
-      let html = '<div class="apps-grid">';
-
-      filteredApps.forEach(app => {
+      allApps.forEach(app => {
         const isMaintenance = app.active === false;
-        const iconSrc = getAppIconSrc(app);
+        const iconSrc = app.icon || extractFavicon(app.url);
 
         html += `
-          <div class="app-card ${isMaintenance ? 'maintenance-card' : ''}" id="card-${app.id}">
-            <div>
-              <div class="card-top">
-                <div class="app-icon-frame">
-                  ${iconSrc.isImg ? `<img src="${iconSrc.src}" alt="${escapeHtml(app.name)}" onerror="handleIconError(this, '${escapeHtml(app.name)}')">` : `<span class="fallback-icon">${iconSrc.src}</span>`}
-                </div>
-                <div class="app-info">
-                  <div class="app-title-row">
-                    <div class="app-name" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</div>
-                  </div>
-                  <span class="app-category-badge">${escapeHtml(app.category || 'ทั่วไป')}</span>
-                  <div class="app-status-badge">
-                    <span class="status-dot ${isMaintenance ? 'maintenance' : ''}"></span>
-                    <span>${isMaintenance ? 'ปิดปรับปรุง' : 'พร้อมใช้งาน'}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="card-footer">
-                <button class="btn-open-app" onclick="openInAppViewer('${app.id}')" ${isMaintenance && currentRole !== 'admin' ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
-                  <i class="bi bi-play-circle-fill"></i>
-                  <span>เปิดใช้งานแอป</span>
+          <div class="app-card ${isMaintenance ? 'maintenance-card' : ''}" 
+               id="card-${app.id}" 
+               data-id="${app.id}"
+               onclick="handleCardClick('${app.id}', event)">
+            
+            ${isAdmin ? `
+              <span class="drag-grip-indicator" title="ลากเพื่อเรียงลำดับ">
+                <i class="bi bi-grip-vertical"></i>
+              </span>
+              <div class="admin-card-actions">
+                <button class="admin-icon-btn" onclick="openEditAppModal('${app.id}', event)" title="แก้ไข">
+                  <i class="bi bi-pencil-fill"></i>
                 </button>
-                <button class="btn-card-icon" onclick="openExternalUrl('${escapeHtml(app.url)}')" title="เปิดในแท็บเบราว์เซอร์ใหม่">
-                  <i class="bi bi-box-arrow-up-right"></i>
+                <button class="admin-icon-btn del" onclick="confirmDeleteApp('${app.id}', event)" title="ลบ">
+                  <i class="bi bi-trash3-fill"></i>
                 </button>
               </div>
+            ` : ''}
 
-              ${currentRole === 'admin' ? `
-                <div class="admin-card-bar">
-                  <button class="admin-pill-btn" onclick="openEditAppModal('${app.id}')">
-                    <i class="bi bi-pencil-square"></i> แก้ไข
-                  </button>
-                  <button class="admin-pill-btn" onclick="toggleAppActive('${app.id}')">
-                    <i class="bi ${isMaintenance ? 'bi-eye' : 'bi-eye-slash'}"></i> ${isMaintenance ? 'เปิด' : 'พัก'}
-                  </button>
-                  <button class="admin-pill-btn delete" onclick="confirmDeleteApp('${app.id}')">
-                    <i class="bi bi-trash3"></i> ลบ
-                  </button>
-                </div>
-              ` : ''}
+            <div class="app-icon-frame">
+              <img src="${iconSrc}" alt="${escapeHtml(app.name)}" onerror="handleIconError(this, '${escapeHtml(app.name)}')">
             </div>
+            
+            <div class="app-name" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</div>
           </div>
         `;
       });
 
       html += '</div>';
       container.innerHTML = html;
+
+      // Attach Drag & Drop handlers if Admin
+      if (isAdmin) {
+        initDragAndDrop();
+      }
     }
 
-    // Icon Resolver helper
-    function getAppIconSrc(app) {
-      if (app.icon && app.icon.startsWith('http')) {
-        return { isImg: true, src: app.icon };
+    function handleCardClick(appId, event) {
+      if (event.target.closest('.admin-card-actions') || event.target.closest('.drag-grip-indicator')) {
+        return;
       }
-      if (app.icon && !app.icon.startsWith('http')) {
-        return { isImg: false, src: app.icon };
-      }
-      return { isImg: false, src: '💧' };
+      openInAppViewer(appId);
     }
 
     function handleIconError(img, name) {
-      img.outerHTML = `<span class="fallback-icon" style="font-size:1.5rem;">${name ? name.charAt(0).toUpperCase() : '💧'}</span>`;
+      img.outerHTML = `<span class="fallback-icon">${name ? name.charAt(0).toUpperCase() : '💧'}</span>`;
     }
 
     function escapeHtml(text) {
@@ -1792,7 +1573,105 @@
     }
 
     // ============================================================
-    // IN-APP FULLSCREEN VIEWER (Without Browser Address Bar)
+    // DRAG AND DROP HANDLERS (Desktop & Mobile Touch)
+    // ============================================================
+    function initDragAndDrop() {
+      const cards = document.querySelectorAll('.app-card');
+      cards.forEach(card => {
+        card.setAttribute('draggable', 'true');
+
+        // Desktop Drag events
+        card.addEventListener('dragstart', (e) => {
+          draggedAppId = card.dataset.id;
+          card.classList.add('is-dragging');
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', card.dataset.id);
+        });
+
+        card.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          if (draggedAppId && draggedAppId !== card.dataset.id) {
+            card.classList.add('drag-over');
+          }
+        });
+
+        card.addEventListener('dragleave', () => {
+          card.classList.remove('drag-over');
+        });
+
+        card.addEventListener('drop', (e) => {
+          e.preventDefault();
+          card.classList.remove('drag-over');
+          const sourceId = e.dataTransfer.getData('text/plain') || draggedAppId;
+          if (sourceId && sourceId !== card.dataset.id) {
+            reorderApps(sourceId, card.dataset.id);
+          }
+        });
+
+        card.addEventListener('dragend', () => {
+          card.classList.remove('is-dragging');
+          document.querySelectorAll('.app-card').forEach(c => c.classList.remove('drag-over'));
+          draggedAppId = null;
+        });
+
+        // Mobile Touch Reorder events
+        card.addEventListener('touchstart', (e) => {
+          if (e.target.closest('.admin-card-actions')) return;
+          const touch = e.touches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+          touchActiveCard = card;
+          touchActiveId = card.dataset.id;
+          isDraggingTouch = false;
+        }, { passive: true });
+
+        card.addEventListener('touchmove', (e) => {
+          if (!touchActiveCard) return;
+          const touch = e.touches[0];
+          const diffX = Math.abs(touch.clientX - touchStartX);
+          const diffY = Math.abs(touch.clientY - touchStartY);
+
+          if (diffX > 12 || diffY > 12) {
+            isDraggingTouch = true;
+            touchActiveCard.classList.add('is-dragging');
+
+            const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+            const targetCard = elem ? elem.closest('.app-card') : null;
+
+            document.querySelectorAll('.app-card').forEach(c => {
+              if (c !== touchActiveCard) c.classList.remove('drag-over');
+            });
+
+            if (targetCard && targetCard !== touchActiveCard) {
+              targetCard.classList.add('drag-over');
+            }
+          }
+        }, { passive: true });
+
+        card.addEventListener('touchend', (e) => {
+          if (touchActiveCard && isDraggingTouch) {
+            const touch = e.changedTouches[0];
+            const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+            const targetCard = elem ? elem.closest('.app-card') : null;
+
+            if (targetCard && targetCard.dataset.id && targetCard.dataset.id !== touchActiveId) {
+              reorderApps(touchActiveId, targetCard.dataset.id);
+            }
+          }
+
+          document.querySelectorAll('.app-card').forEach(c => {
+            c.classList.remove('is-dragging', 'drag-over');
+          });
+          touchActiveCard = null;
+          touchActiveId = null;
+          isDraggingTouch = false;
+        });
+      });
+    }
+
+    // ============================================================
+    // IN-APP FULLSCREEN VIEWER
     // ============================================================
     function openInAppViewer(appId) {
       const apps = getStoredApps();
@@ -1808,14 +1687,7 @@
       const loader = document.getElementById('viewerLoader');
 
       title.textContent = app.name;
-      
-      const iconInfo = getAppIconSrc(app);
-      if (iconInfo.isImg) {
-        icon.src = iconInfo.src;
-        icon.style.display = 'block';
-      } else {
-        icon.style.display = 'none';
-      }
+      icon.src = app.icon || extractFavicon(app.url);
 
       loader.style.display = 'flex';
       loader.style.opacity = '1';
@@ -1830,7 +1702,7 @@
       const loader = document.getElementById('viewerLoader');
       if (loader) {
         loader.style.opacity = '0';
-        setTimeout(() => { loader.style.display = 'none'; }, 300);
+        setTimeout(() => { loader.style.display = 'none'; }, 250);
       }
     }
 
@@ -1869,30 +1741,8 @@
       }
     }
 
-    function openExternalUrl(url) {
-      if (url) window.open(url, '_blank');
-    }
-
     // ============================================================
-    // SEARCH & FILTER
-    // ============================================================
-    function handleSearch(val) {
-      searchQuery = (val || '').trim();
-      const clearBtn = document.getElementById('searchClearBtn');
-      if (clearBtn) {
-        clearBtn.style.display = searchQuery ? 'block' : 'none';
-      }
-      renderApps();
-    }
-
-    function clearSearch() {
-      const input = document.getElementById('searchInput');
-      if (input) input.value = '';
-      handleSearch('');
-    }
-
-    // ============================================================
-    // APP MODAL (ADD / EDIT)
+    // APP MODAL (ADD / EDIT - Only Name & URL, Auto Favicon)
     // ============================================================
     function openAddAppModal() {
       if (currentRole !== 'admin') {
@@ -1906,14 +1756,14 @@
       document.getElementById('formAppId').value = '';
       document.getElementById('formAppName').value = '';
       document.getElementById('formAppUrl').value = '';
-      document.getElementById('formAppCategory').value = 'ทั่วไป';
-      document.getElementById('formAppIcon').value = '';
       document.getElementById('formAppActive').checked = true;
+      document.getElementById('faviconPreviewImg').src = 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
 
       document.getElementById('appModal').classList.add('active');
     }
 
-    function openEditAppModal(appId) {
+    function openEditAppModal(appId, event) {
+      if (event) event.stopPropagation();
       const apps = getStoredApps();
       const app = apps.find(a => a.id === appId);
       if (!app) return;
@@ -1922,9 +1772,8 @@
       document.getElementById('formAppId').value = app.id;
       document.getElementById('formAppName').value = app.name || '';
       document.getElementById('formAppUrl').value = app.url || '';
-      document.getElementById('formAppCategory').value = app.category || 'ทั่วไป';
-      document.getElementById('formAppIcon').value = app.icon || '';
       document.getElementById('formAppActive').checked = app.active !== false;
+      document.getElementById('faviconPreviewImg').src = app.icon || extractFavicon(app.url);
 
       document.getElementById('appModal').classList.add('active');
     }
@@ -1933,17 +1782,11 @@
       document.getElementById('appModal').classList.remove('active');
     }
 
-    function selectPresetIcon(iconEmoji) {
-      document.getElementById('formAppIcon').value = iconEmoji;
-    }
-
     async function handleAppFormSubmit(e) {
       e.preventDefault();
       const appId = document.getElementById('formAppId').value;
       const name = document.getElementById('formAppName').value.trim();
       const url = document.getElementById('formAppUrl').value.trim();
-      const category = document.getElementById('formAppCategory').value.trim() || 'ทั่วไป';
-      const icon = document.getElementById('formAppIcon').value.trim() || '💧';
       const active = document.getElementById('formAppActive').checked;
 
       if (!name || !url) {
@@ -1951,22 +1794,24 @@
         return;
       }
 
+      // Automatically generate favicon from URL
+      const icon = extractFavicon(url);
+
       closeAppModal();
-      showLoader(appId ? 'กำลังบันทึกการแก้ไขลง Google Sheets...' : 'กำลังบันทึกแอปใหม่ลง Google Sheets...');
+      showLoader();
 
       let apps = getStoredApps();
 
       if (appId) {
         const index = apps.findIndex(a => a.id === appId);
         if (index !== -1) {
-          apps[index] = { ...apps[index], name, url, category, icon, active };
+          apps[index] = { ...apps[index], name, url, icon, active };
         }
       } else {
         const newApp = {
           id: 'app-' + Date.now(),
           name,
           url,
-          category,
           icon,
           active,
           order: apps.length + 1
@@ -1979,25 +1824,14 @@
       showToast(appId ? 'บันทึกการแก้ไขเรียบร้อยแล้ว' : 'เพิ่มเว็บแอปสำเร็จแล้ว');
     }
 
-    async function toggleAppActive(appId) {
-      let apps = getStoredApps();
-      const app = apps.find(a => a.id === appId);
-      if (!app) return;
-
-      showLoader('กำลังอัปเดตสถานะแอป...');
-      app.active = !app.active;
-      await saveAppsToCloud(apps);
-      hideLoader();
-      showToast(app.active ? 'เปิดใช้งานแอปแล้ว' : 'ปิดปรับปรุงชั่วคราว');
-    }
-
-    async function confirmDeleteApp(appId) {
+    async function confirmDeleteApp(appId, event) {
+      if (event) event.stopPropagation();
       const apps = getStoredApps();
       const app = apps.find(a => a.id === appId);
       if (!app) return;
 
       if (confirm(`คุณต้องการลบเว็บแอป "${app.name}" หรือไม่?`)) {
-        showLoader('กำลังลบข้อมูลจาก Google Sheets...');
+        showLoader();
         const updated = apps.filter(a => a.id !== appId);
         await saveAppsToCloud(updated);
         hideLoader();
@@ -2141,7 +1975,7 @@
         toast.classList.add('show');
         setTimeout(() => {
           toast.classList.remove('show');
-        }, 2800);
+        }, 2500);
       }
     }
   </script>
