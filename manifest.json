@@ -1,12 +1,12 @@
 {
   "name": "Mizuiku",
   "short_name": "Mizuiku",
-  "description": "Web App Hub สไตล์สายน้ำและธรรมชาติ รวบรวมและเปิดใช้งานเว็บแอปแบบเต็มจอ พร้อมระบบ Cloud Sync",
+  "description": "แอปผู้พิทักษ์รักษ์น้ำ โรงเรียนรักษ์โลก",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#061511",
-  "theme_color": "#0D2E26",
+  "background_color": "#F0F9FF",
+  "theme_color": "#E0F2FE",
   "orientation": "any",
   "icons": [
     {
