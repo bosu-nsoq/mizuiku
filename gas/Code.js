@@ -1,85 +1,114 @@
 // ============================================================
-// Mizuiku Web App - Cloud Backend (Google Apps Script)
-// ระบบ Cloud Sync สำหรับ Mizuiku (สายน้ำและธรรมชาติ Hub)
-// บันทึกและดึงข้อมูลรายชื่อเว็บแอปผ่าน Google Drive และ Google Sheets อัตโนมัติ
+// Multi-App Cloud Backend (Google Apps Script)
+// Supports both Bosu Hub and Mizuiku (Water & Nature) Hub
+// Automatically creates folder 'Bosu' and spreadsheet 'Bosu_Database'
+// with separate sheets: 'Apps' for Bosu, 'Mizuiku_Apps' for Mizuiku
 // ============================================================
 
-const FOLDER_NAME = "Mizuiku";
-const SPREADSHEET_NAME = "Mizuiku_Database";
-const SHEET_NAME = "Apps";
+const DEFAULT_BOSU_APPS = [
+  {
+    id: 'wntk-library-system',
+    name: 'WNTK Library System',
+    url: 'https://bosu-nsoq.github.io/wntk-library-system/',
+    icon: 'https://i.postimg.cc/D0Dw84J1/WNTK.png',
+    active: true
+  },
+  {
+    id: 'financial',
+    name: 'Financial',
+    url: 'https://bosu-nsoq.github.io/financial/',
+    icon: 'https://i.postimg.cc/T2Cngdnd/Financial.png',
+    active: true
+  },
+  {
+    id: 'lunar',
+    name: 'Lunar',
+    url: 'https://bosu-nsoq.github.io/lunar/',
+    icon: 'https://i.postimg.cc/xC1sKNwZ/Lunar.png',
+    active: true
+  }
+];
 
-// แอปเริ่มต้น: เริ่มต้นเป็นลิสต์ว่างเพื่อให้แอดมินเพิ่มเองตามต้องการ
-const INITIAL_APPS = [];
-
-// 1. Get or Create 'Mizuiku' Folder in Google Drive
-function getOrCreateMizuikuFolder() {
-  const folders = DriveApp.getFoldersByName(FOLDER_NAME);
+// 1. Get or Create 'Bosu' Folder in Google Drive
+function getOrCreateBosuFolder() {
+  const folders = DriveApp.getFoldersByName("Bosu");
   if (folders.hasNext()) {
     return folders.next();
   }
-  return DriveApp.createFolder(FOLDER_NAME);
+  return DriveApp.createFolder("Bosu");
 }
 
-// 2. Get or Create Spreadsheet inside 'Mizuiku' Folder
+// 2. Get or Create Spreadsheet inside 'Bosu' Folder
 function getOrCreateDatabaseSpreadsheet() {
-  const folder = getOrCreateMizuikuFolder();
-  const files = folder.getFilesByName(SPREADSHEET_NAME);
+  const folder = getOrCreateBosuFolder();
+  const files = folder.getFilesByName("Bosu_Database");
   let ss;
   
   if (files.hasNext()) {
     ss = SpreadsheetApp.open(files.next());
   } else {
-    // สร้างสเปรดชีตใหม่และย้ายเข้าโฟลเดอร์ Mizuiku โดยตรง
-    ss = SpreadsheetApp.create(SPREADSHEET_NAME);
+    ss = SpreadsheetApp.create("Bosu_Database");
     const file = DriveApp.getFileById(ss.getId());
     folder.addFile(file);
     DriveApp.getRootFolder().removeFile(file);
   }
 
-  let sheet = ss.getSheetByName(SHEET_NAME);
+  // Ensure default Bosu Apps sheet exists
+  let sheet = ss.getSheetByName("Apps");
   if (!sheet) {
     sheet = ss.getActiveSheet();
-    sheet.setName(SHEET_NAME);
+    sheet.setName("Apps");
     sheet.clear();
     
-    // Header columns
-    const headers = [["id", "name", "url", "icon", "category", "active", "order", "updated_at"]];
-    sheet.getRange(1, 1, 1, headers[0].length).setValues(headers);
-    sheet.getRange(1, 1, 1, headers[0].length).setFontWeight("bold").setBackground("#D1FAE5");
-    sheet.setFrozenRows(1);
+    const initialRows = [
+      ["id", "name", "url", "icon", "active", "order", "updated_at"],
+      ...DEFAULT_BOSU_APPS.map((app, idx) => [
+        app.id,
+        app.name,
+        app.url,
+        app.icon,
+        app.active,
+        idx + 1,
+        new Date().toISOString()
+      ])
+    ];
+    sheet.getRange(1, 1, initialRows.length, 7).setValues(initialRows);
   }
 
   return ss;
 }
 
-// One-time Setup & Authorization Helper (คลิกเลือกฟังก์ชันนี้แล้วกด "เรียกใช้" เพื่ออนุมัติสิทธิ์ครั้งแรก)
-function initMizuikuDatabase() {
-  const folder = getOrCreateMizuikuFolder();
-  const ss = getOrCreateDatabaseSpreadsheet();
-  const apps = getAppsFromSheet();
-  Logger.log("✅ ตรวจสอบ/สร้างโฟลเดอร์ '" + FOLDER_NAME + "' ใน Google Drive สำเร็จ: " + folder.getUrl());
-  Logger.log("✅ ตรวจสอบ/สร้างสเปรดชีต '" + SPREADSHEET_NAME + "' สำเร็จ: " + ss.getUrl());
-  Logger.log("✅ ความพร้อมของฐานข้อมูล: มีเว็บแอปในระบบทั้งหมด " + apps.length + " แอป");
-  return {
-    folderUrl: folder.getUrl(),
-    sheetUrl: ss.getUrl(),
-    appsCount: apps.length
-  };
+// Helper: Get or Create Sheet for target app ('bosu' | 'mizuiku')
+function getTargetSheet(ss, appName) {
+  const isMizuiku = (appName || '').toLowerCase() === 'mizuiku';
+  const targetSheetName = isMizuiku ? "Mizuiku_Apps" : "Apps";
+  
+  let sheet = ss.getSheetByName(targetSheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(targetSheetName);
+    const headers = [["id", "name", "url", "icon", "category", "active", "order", "updated_at"]];
+    sheet.getRange(1, 1, 1, headers[0].length).setValues(headers);
+    sheet.getRange(1, 1, 1, headers[0].length).setFontWeight("bold").setBackground(isMizuiku ? "#BAE6FD" : "#E2E8F0");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
 }
 
 // 3. Read All Apps from Sheet (Lock protected)
-function getAppsFromSheet() {
+function getAppsFromSheet(appName) {
+  const isMizuiku = (appName || '').toLowerCase() === 'mizuiku';
+  const defaultApps = isMizuiku ? [] : DEFAULT_BOSU_APPS;
+  
   const lock = LockService.getScriptLock();
   let hasLock = false;
   try {
     hasLock = lock.tryLock(10000);
     const ss = getOrCreateDatabaseSpreadsheet();
-    const sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) return [];
+    const sheet = getTargetSheet(ss, appName);
 
     const data = sheet.getDataRange().getValues();
     if (!data || data.length <= 1) {
-      return [];
+      return defaultApps;
     }
 
     const headers = data[0].map(h => String(h).toLowerCase().trim());
@@ -108,10 +137,10 @@ function getAppsFromSheet() {
     }
 
     apps.sort((a, b) => a.order - b.order);
-    return apps;
+    return apps.length > 0 ? apps : defaultApps;
   } catch (err) {
     Logger.log("getAppsFromSheet error: " + err);
-    return [];
+    return defaultApps;
   } finally {
     if (hasLock) {
       try { lock.releaseLock(); } catch (e) {}
@@ -120,7 +149,7 @@ function getAppsFromSheet() {
 }
 
 // 4. Save/Sync Apps to Sheet (Atomic & Lock protected)
-function saveAppsToSheet(apps) {
+function saveAppsToSheet(apps, appName) {
   if (!Array.isArray(apps)) {
     return { success: false, error: "Invalid apps list format" };
   }
@@ -129,11 +158,10 @@ function saveAppsToSheet(apps) {
   try {
     lock.waitLock(15000);
     const ss = getOrCreateDatabaseSpreadsheet();
-    const sheet = ss.getSheetByName(SHEET_NAME) || ss.getActiveSheet();
+    const sheet = getTargetSheet(ss, appName);
     
     const existingLastRow = sheet.getLastRow();
 
-    // Prepare full matrix with header
     const rows = [
       ["id", "name", "url", "icon", "category", "active", "order", "updated_at"],
       ...apps.map((app, idx) => [
@@ -165,28 +193,30 @@ function saveAppsToSheet(apps) {
   }
 }
 
-// 5. HTTP GET Handler (Read apps or JSONP)
+// 5. HTTP GET Handler
 function doGet(e) {
-  const apps = getAppsFromSheet();
+  const app = (e && e.parameter && e.parameter.app) || 'bosu';
   const callback = e && e.parameter && e.parameter.callback;
+  const apps = getAppsFromSheet(app);
   
-  const responseData = {
+  const res = {
     status: "success",
+    app: app,
     data: apps,
     count: apps.length,
     timestamp: Date.now()
   };
 
   if (callback) {
-    return ContentService.createTextOutput(callback + "(" + JSON.stringify(responseData) + ");")
+    return ContentService.createTextOutput(callback + "(" + JSON.stringify(res) + ");")
       .setMimeType(ContentService.MimeType.JAVASCRIPT);
   }
 
-  return ContentService.createTextOutput(JSON.stringify(responseData))
+  return ContentService.createTextOutput(JSON.stringify(res))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-// 6. HTTP POST Handler (Sync/Update apps)
+// 6. HTTP POST Handler
 function doPost(e) {
   try {
     let body = {};
@@ -194,10 +224,11 @@ function doPost(e) {
       body = JSON.parse(e.postData.contents);
     }
 
+    const app = body.app || (e && e.parameter && e.parameter.app) || 'bosu';
     const action = body.action || (e && e.parameter && e.parameter.action);
 
     if (action === "saveApps") {
-      const result = saveAppsToSheet(body.apps || []);
+      const result = saveAppsToSheet(body.apps || [], app);
       if (!result.success) {
         return ContentService.createTextOutput(JSON.stringify({
           status: "error",
@@ -205,9 +236,10 @@ function doPost(e) {
         })).setMimeType(ContentService.MimeType.JSON);
       }
 
-      const updatedApps = getAppsFromSheet();
+      const updatedApps = getAppsFromSheet(app);
       return ContentService.createTextOutput(JSON.stringify({
         status: "success",
+        app: app,
         message: "Saved successfully",
         data: updatedApps,
         count: updatedApps.length,
@@ -216,9 +248,10 @@ function doPost(e) {
     }
 
     // Default action: getApps
-    const apps = getAppsFromSheet();
+    const apps = getAppsFromSheet(app);
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
+      app: app,
       data: apps,
       count: apps.length,
       timestamp: Date.now()

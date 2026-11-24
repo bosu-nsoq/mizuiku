@@ -11,9 +11,9 @@
   
   <!-- PWA & Apple Mobile Web App Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0D2E26">
+  <meta name="theme-color" content="#E0F2FE">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Mizuiku">
   <link rel="apple-touch-icon" href="https://i.postimg.cc/d01s2X3T/MIzuiku.png">
   <meta name="mobile-web-app-capable" content="yes">
@@ -28,33 +28,33 @@
 
   <style>
     :root {
-      /* Water & Nature Theme Colors */
-      --bg-deep-nature: #051813;
-      --bg-stream: #09261E;
-      --bg-card: rgba(12, 38, 30, 0.72);
-      --bg-card-hover: rgba(18, 54, 43, 0.90);
-      --bg-card-glass: rgba(10, 32, 26, 0.65);
+      /* Bright Blue & White Theme */
+      --bg-sky-top: #F0F9FF;
+      --bg-sky-mid: #E0F2FE;
+      --bg-sky-bottom: #BAE6FD;
       
-      --text-main: #F2FBF7;
-      --text-sub: #A3CFBE;
-      --text-muted: #5C9480;
+      --bg-card: rgba(255, 255, 255, 0.94);
+      --bg-card-hover: #FFFFFF;
+      --bg-card-glass: rgba(255, 255, 255, 0.85);
       
+      --text-main: #0F172A; /* High-contrast slate navy */
+      --text-sub: #0369A1; /* Ocean deep blue */
+      --text-muted: #64748B; /* Soft slate */
+      
+      --water-primary: #0284C7; /* Azure Blue */
+      --water-vivid: #0EA5E9; /* Sky Water */
+      --water-cyan: #38BDF8; /* Crystal Cyan */
+      --water-light: #E0F2FE; /* Soft Water tint */
       --nature-mint: #10B981;
-      --nature-emerald: #059669;
-      --nature-leaf: #34D399;
-      --water-cyan: #2DD4BF;
-      --water-aqua: #38BDF8;
-      --water-river: #0EA5E9;
       --sun-gold: #F59E0B;
-      --danger: #F43F5E;
+      --danger: #EF4444;
       
-      --border-nature: rgba(45, 212, 191, 0.20);
-      --border-hover: rgba(52, 211, 153, 0.45);
-      --glow-nature: rgba(45, 212, 191, 0.35);
-      --glow-mint: rgba(16, 185, 129, 0.30);
+      --border-water: rgba(56, 189, 248, 0.35);
+      --border-hover: #0EA5E9;
+      --glow-water: rgba(14, 165, 233, 0.22);
       
-      --shadow-water: 0 10px 30px -10px rgba(4, 21, 16, 0.8), 0 0 20px 0 rgba(45, 212, 191, 0.12);
-      --shadow-hover: 0 16px 40px -10px rgba(4, 21, 16, 0.9), 0 0 30px 2px rgba(45, 212, 191, 0.28);
+      --shadow-water: 0 10px 25px -5px rgba(14, 165, 233, 0.10), 0 8px 10px -6px rgba(14, 165, 233, 0.05);
+      --shadow-hover: 0 20px 35px -8px rgba(14, 165, 233, 0.22), 0 0 20px 2px rgba(56, 189, 248, 0.22);
       
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -69,7 +69,7 @@
     }
 
     body {
-      background: radial-gradient(circle at 50% 0%, #0D3B2E 0%, #061913 50%, #030F0C 100%);
+      background: linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 45%, #BAE6FD 100%);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -80,7 +80,7 @@
       padding-bottom: var(--safe-bottom);
     }
 
-    /* Ambient Nature & Water Background Effects */
+    /* Ambient Water & Nature Background Light Glows */
     .nature-bg-layer {
       position: fixed;
       inset: 0;
@@ -93,16 +93,16 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(80px);
-      opacity: 0.28;
+      opacity: 0.45;
       animation: floatOrb 18s ease-in-out infinite alternate;
     }
 
     .water-orb-1 {
-      width: 450px;
-      height: 450px;
-      top: -100px;
+      width: 480px;
+      height: 480px;
+      top: -120px;
       right: -80px;
-      background: radial-gradient(circle, #2DD4BF, #059669);
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.35), rgba(186, 230, 253, 0.15));
     }
 
     .water-orb-2 {
@@ -110,40 +110,130 @@
       height: 550px;
       bottom: -150px;
       left: -120px;
-      background: radial-gradient(circle, #0284C7, #10B981);
-      animation-duration: 24s;
-    }
-
-    .water-orb-3 {
-      width: 320px;
-      height: 320px;
-      top: 45%;
-      left: 30%;
-      background: radial-gradient(circle, #34D399, #0D9488);
-      animation-duration: 15s;
-      opacity: 0.18;
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.25), rgba(224, 242, 254, 0.2));
+      animation-duration: 22s;
     }
 
     @keyframes floatOrb {
       0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(40px, 30px) scale(1.08); }
-      100% { transform: translate(-30px, 50px) scale(0.95); }
+      50% { transform: translate(30px, 25px) scale(1.08); }
+      100% { transform: translate(-25px, 40px) scale(0.95); }
     }
 
-    /* Ambient Wave Curves at the bottom */
+    /* Bottom Animated Flowing Water Waves */
     .nature-waves {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 120px;
+      height: 140px;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.35;
+      opacity: 0.65;
     }
 
     /* ============================================================
-       HEADER (Strict Single-Line Responsive Requirement)
+       LOADING SCREEN OVERLAY (หน้าโหลดระหว่างทำงาน / Google Sheets)
+       ============================================================ */
+    .nature-loader-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(240, 249, 255, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .nature-loader-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nature-loader-box {
+      background: #FFFFFF;
+      border: 1.5px solid var(--water-cyan);
+      box-shadow: 0 16px 40px -8px rgba(14, 165, 233, 0.25), 0 0 30px rgba(56, 189, 248, 0.3);
+      border-radius: 28px;
+      padding: 36px 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      max-width: 90vw;
+      width: 320px;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+
+    .nature-loader-overlay.active .nature-loader-box {
+      transform: scale(1);
+    }
+
+    .loader-icon-container {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .water-ripple-ring {
+      position: absolute;
+      inset: -8px;
+      border: 2.5px solid var(--water-vivid);
+      border-radius: 50%;
+      animation: ripplePulse 2s ease-out infinite;
+      opacity: 0;
+    }
+
+    .water-ripple-ring.ring-2 {
+      animation-delay: 1s;
+    }
+
+    @keyframes ripplePulse {
+      0% { transform: scale(0.7); opacity: 0.9; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    .loader-logo-img {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35);
+      z-index: 2;
+      animation: gentleFloat 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes gentleFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-5px); }
+    }
+
+    .loader-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .loader-subtext {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    /* ============================================================
+       HEADER (Single-Line on Mobile, Blue-White Theme)
        ============================================================ */
     header.mizuiku-header {
       position: sticky;
@@ -151,9 +241,10 @@
       z-index: 50;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: rgba(6, 24, 18, 0.85);
-      border-bottom: 1px solid var(--border-nature);
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1.5px solid rgba(56, 189, 248, 0.28);
       padding: 10px 16px;
+      box-shadow: 0 4px 18px rgba(14, 165, 233, 0.08);
       transition: all 0.25s ease;
     }
 
@@ -174,32 +265,33 @@
       white-space: nowrap;
       flex-shrink: 0;
       user-select: none;
+      cursor: pointer;
     }
 
     .brand-logo-wrap {
-      position: relative;
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #0E3E31, #061F17);
-      border: 1px solid var(--water-cyan);
-      box-shadow: 0 0 14px var(--glow-nature);
+      background: #FFFFFF;
+      border: 1.5px solid var(--water-cyan);
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       flex-shrink: 0;
+      transition: transform 0.3s ease;
     }
 
-    .brand-logo-svg {
-      width: 26px;
-      height: 26px;
-      fill: none;
-      transition: transform 0.4s ease;
+    .brand-logo-wrap:hover {
+      transform: scale(1.08) rotate(4deg);
     }
 
-    .brand-logo-wrap:hover .brand-logo-svg {
-      transform: scale(1.15) rotate(5deg);
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .brand-text-block {
@@ -210,28 +302,20 @@
     }
 
     .brand-title {
-      font-size: 1.18rem;
+      font-size: 1.3rem;
       font-weight: 700;
       letter-spacing: 0.5px;
-      background: linear-gradient(90deg, #A7F3D0 0%, #2DD4BF 50%, #38BDF8 100%);
+      background: linear-gradient(90deg, #0284C7 0%, #0EA5E9 60%, #0369A1 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 1.15;
+      line-height: 1.1;
     }
 
-    .brand-subtitle {
-      font-size: 0.72rem;
-      color: var(--text-sub);
-      font-weight: 400;
-      opacity: 0.9;
-      white-space: nowrap;
-    }
-
-    /* Header Center/Right Tools */
+    /* Header Tools */
     .header-tools {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: nowrap;
     }
 
@@ -240,59 +324,20 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(18, 54, 43, 0.65);
-      border: 1px solid var(--border-nature);
-      padding: 5px 10px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-water);
+      padding: 6px 12px;
       border-radius: 20px;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
+      font-weight: 600;
       color: var(--text-sub);
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.08);
       white-space: nowrap;
     }
 
     .date-badge i {
-      color: var(--water-cyan);
+      color: var(--water-vivid);
       font-size: 0.85rem;
-    }
-
-    /* Cloud Sync Status Indicator */
-    .cloud-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #6EE7B7;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .cloud-pill:hover {
-      background: rgba(16, 185, 129, 0.22);
-      border-color: var(--water-cyan);
-    }
-
-    .cloud-pill.syncing {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: rgba(245, 158, 11, 0.4);
-      color: #FCD34D;
-    }
-
-    .cloud-pill.local-only {
-      background: rgba(148, 163, 184, 0.15);
-      border-color: rgba(148, 163, 184, 0.3);
-      color: #CBD5E1;
-    }
-
-    .dot-pulse {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 0 6px currentColor;
     }
 
     /* Admin Role Pill Button */
@@ -300,51 +345,54 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
-      border: 1px solid var(--border-nature);
-      background: rgba(18, 54, 43, 0.75);
-      color: var(--text-main);
+      border: 1.5px solid var(--border-water);
+      background: #FFFFFF;
+      color: var(--text-sub);
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.08);
       transition: all 0.2s ease;
       white-space: nowrap;
     }
 
     .role-btn:hover {
-      border-color: var(--water-cyan);
-      box-shadow: 0 0 10px var(--glow-nature);
+      border-color: var(--water-vivid);
+      color: var(--water-primary);
+      box-shadow: 0 0 12px var(--glow-water);
     }
 
     .role-btn.admin-active {
-      background: linear-gradient(135deg, #059669, #0D9488);
-      border-color: #6EE7B7;
+      background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+      border-color: #38BDF8;
       color: #FFFFFF;
-      box-shadow: 0 0 12px var(--glow-mint);
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
     }
 
     .btn-icon-circle {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      border: 1px solid var(--border-nature);
-      background: rgba(18, 54, 43, 0.65);
-      color: var(--text-main);
+      border: 1px solid var(--border-water);
+      background: #FFFFFF;
+      color: var(--text-sub);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       font-size: 0.95rem;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.08);
       transition: all 0.2s ease;
       flex-shrink: 0;
     }
 
     .btn-icon-circle:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--water-cyan);
-      color: var(--water-cyan);
-      box-shadow: 0 0 10px var(--glow-nature);
+      background: var(--water-light);
+      border-color: var(--water-vivid);
+      color: var(--water-primary);
+      box-shadow: 0 0 12px var(--glow-water);
     }
 
     /* ============================================================
@@ -355,12 +403,12 @@
       max-width: 1280px;
       width: 100%;
       margin: 0 auto;
-      padding: 20px 16px 80px 16px;
+      padding: 24px 16px 80px 16px;
       position: relative;
       z-index: 1;
     }
 
-    /* Hero / Action Bar Section */
+    /* Action Bar: Search & Add App (Clean, No Cloud button) */
     .action-bar {
       display: flex;
       align-items: center;
@@ -382,28 +430,27 @@
       left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--water-cyan);
+      color: var(--water-vivid);
       font-size: 0.95rem;
       pointer-events: none;
     }
 
     .search-input {
       width: 100%;
-      background: rgba(10, 32, 26, 0.7);
-      border: 1px solid var(--border-nature);
+      background: #FFFFFF;
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
       border-radius: 14px;
-      padding: 9px 38px 9px 38px;
+      padding: 10px 38px 10px 38px;
       color: var(--text-main);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       outline: none;
+      box-shadow: 0 2px 10px rgba(14, 165, 233, 0.06);
       transition: all 0.25s ease;
-      backdrop-filter: blur(8px);
     }
 
     .search-input:focus {
-      border-color: var(--water-cyan);
-      box-shadow: 0 0 14px var(--glow-nature);
-      background: rgba(14, 44, 35, 0.85);
+      border-color: var(--water-vivid);
+      box-shadow: 0 0 14px var(--glow-water);
     }
 
     .search-input::placeholder {
@@ -433,58 +480,36 @@
       gap: 10px;
     }
 
-    .btn-nature-primary {
+    .btn-water-primary {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, #10B981 0%, #0D9488 100%);
-      border: 1px solid #6EE7B7;
+      background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+      border: 1px solid #38BDF8;
       color: #FFFFFF;
-      padding: 9px 18px;
-      border-radius: 12px;
-      font-size: 0.88rem;
+      padding: 10px 20px;
+      border-radius: 14px;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
       transition: all 0.2s ease;
       white-space: nowrap;
     }
 
-    .btn-nature-primary:hover {
+    .btn-water-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(45, 212, 191, 0.45);
-      background: linear-gradient(135deg, #34D399 0%, #14B8A6 100%);
-    }
-
-    .btn-nature-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(18, 54, 43, 0.65);
-      border: 1px solid var(--border-nature);
-      color: var(--text-sub);
-      padding: 8px 14px;
-      border-radius: 12px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .btn-nature-outline:hover {
-      border-color: var(--water-cyan);
-      color: var(--text-main);
-      background: var(--bg-card-hover);
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.45);
+      background: linear-gradient(135deg, #0369A1 0%, #0284C7 100%);
     }
 
     /* ============================================================
-       EMPTY STATE (Clean Water Nature Welcome Card)
+       EMPTY STATE (Clean Water Welcome Card)
        ============================================================ */
     .empty-state-card {
-      background: linear-gradient(135deg, rgba(13, 42, 34, 0.75) 0%, rgba(7, 24, 19, 0.85) 100%);
-      border: 1.5px dashed var(--border-nature);
-      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px dashed rgba(56, 189, 248, 0.5);
+      border-radius: 26px;
       padding: 50px 24px;
       text-align: center;
       backdrop-filter: blur(14px);
@@ -497,43 +522,45 @@
     }
 
     .empty-state-card:hover {
-      border-color: var(--water-cyan);
+      border-color: var(--water-vivid);
       box-shadow: var(--shadow-hover);
     }
 
     .empty-icon-wrap {
-      width: 86px;
-      height: 86px;
+      width: 88px;
+      height: 88px;
       margin: 0 auto 20px auto;
-      border-radius: 28px;
-      background: radial-gradient(circle, rgba(45, 212, 191, 0.25) 0%, rgba(5, 150, 105, 0.1) 70%);
-      border: 1px solid rgba(45, 212, 191, 0.35);
+      border-radius: 24px;
+      background: #FFFFFF;
+      border: 2px solid var(--water-cyan);
+      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 25px var(--glow-nature);
+      overflow: hidden;
       animation: gentlePulse 3s infinite ease-in-out;
     }
 
     @keyframes gentlePulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--glow-nature); }
-      50% { transform: scale(1.06); box-shadow: 0 0 32px var(--glow-mint); }
+      0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(14, 165, 233, 0.2); }
+      50% { transform: scale(1.05); box-shadow: 0 10px 28px rgba(14, 165, 233, 0.35); }
     }
 
-    .empty-icon-svg {
-      width: 48px;
-      height: 48px;
+    .empty-icon-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .empty-title {
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      color: #E6FBF2;
+      color: #0F172A;
       margin-bottom: 8px;
     }
 
     .empty-desc {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--text-sub);
       line-height: 1.6;
       max-width: 440px;
@@ -541,7 +568,7 @@
     }
 
     /* ============================================================
-       APPS GRID & APP CARDS
+       APPS GRID & APP CARDS (Bright White & Water Blue)
        ============================================================ */
     .apps-grid {
       display: grid;
@@ -552,8 +579,8 @@
 
     .app-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-nature);
-      border-radius: 20px;
+      border: 1.5px solid var(--border-water);
+      border-radius: 22px;
       padding: 20px;
       backdrop-filter: blur(12px);
       box-shadow: var(--shadow-water);
@@ -571,8 +598,8 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #10B981, #2DD4BF, #38BDF8);
+      height: 3.5px;
+      background: linear-gradient(90deg, #38BDF8, #0284C7, #0D9488);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -589,8 +616,8 @@
     }
 
     .app-card.maintenance-card {
-      opacity: 0.72;
-      border-color: rgba(245, 158, 11, 0.3);
+      opacity: 0.75;
+      border-color: rgba(245, 158, 11, 0.4);
     }
 
     .app-card.maintenance-card::before {
@@ -598,7 +625,7 @@
       opacity: 1;
     }
 
-    /* Card Header Area */
+    /* Card Top Area */
     .card-top {
       display: flex;
       align-items: flex-start;
@@ -610,15 +637,14 @@
       width: 58px;
       height: 58px;
       border-radius: 16px;
-      background: linear-gradient(135deg, rgba(20, 68, 54, 0.8), rgba(6, 26, 20, 0.95));
-      border: 1.5px solid rgba(45, 212, 191, 0.3);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+      background: #FFFFFF;
+      border: 1.5px solid var(--water-cyan);
+      box-shadow: 0 4px 14px rgba(14, 165, 233, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       flex-shrink: 0;
-      position: relative;
     }
 
     .app-icon-frame img {
@@ -629,8 +655,8 @@
     }
 
     .app-icon-frame .fallback-icon {
-      font-size: 1.5rem;
-      color: var(--water-cyan);
+      font-size: 1.6rem;
+      color: var(--water-primary);
     }
 
     .app-info {
@@ -646,9 +672,9 @@
     }
 
     .app-name {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #0F172A;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -656,12 +682,13 @@
 
     .app-category-badge {
       display: inline-block;
-      font-size: 0.7rem;
-      background: rgba(45, 212, 191, 0.14);
-      color: #5EEAD4;
-      border: 1px solid rgba(45, 212, 191, 0.25);
-      border-radius: 6px;
-      padding: 2px 7px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #E0F2FE;
+      color: #0369A1;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 8px;
+      padding: 2px 8px;
       margin-bottom: 6px;
     }
 
@@ -670,7 +697,8 @@
       align-items: center;
       gap: 5px;
       font-size: 0.72rem;
-      color: var(--text-sub);
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
     .status-dot {
@@ -694,7 +722,7 @@
       gap: 8px;
       margin-top: 14px;
       padding-top: 12px;
-      border-top: 1px solid rgba(45, 212, 191, 0.12);
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
     }
 
     .btn-open-app {
@@ -703,23 +731,22 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(45, 212, 191, 0.2) 100%);
-      border: 1px solid rgba(45, 212, 191, 0.35);
-      color: #E6FFFA;
+      background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+      border: 1px solid #38BDF8;
+      color: #FFFFFF;
       padding: 9px 14px;
       border-radius: 12px;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
       text-decoration: none;
+      box-shadow: 0 3px 10px rgba(14, 165, 233, 0.25);
     }
 
     .btn-open-app:hover {
-      background: linear-gradient(135deg, #10B981 0%, #0D9488 100%);
-      border-color: #6EE7B7;
-      color: #FFFFFF;
-      box-shadow: 0 4px 14px var(--glow-nature);
+      background: linear-gradient(135deg, #0369A1 0%, #0284C7 100%);
+      box-shadow: 0 5px 16px rgba(14, 165, 233, 0.4);
       transform: translateY(-1px);
     }
 
@@ -727,22 +754,22 @@
       width: 36px;
       height: 36px;
       border-radius: 10px;
-      border: 1px solid var(--border-nature);
-      background: rgba(10, 32, 26, 0.6);
+      border: 1px solid var(--border-water);
+      background: #FFFFFF;
       color: var(--text-sub);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       transition: all 0.2s ease;
       flex-shrink: 0;
     }
 
     .btn-card-icon:hover {
-      background: rgba(18, 54, 43, 0.9);
-      border-color: var(--water-cyan);
-      color: var(--water-cyan);
+      background: #E0F2FE;
+      border-color: var(--water-vivid);
+      color: var(--water-primary);
     }
 
     /* Admin Quick Controls on Card */
@@ -753,42 +780,44 @@
       gap: 6px;
       margin-top: 10px;
       padding-top: 8px;
-      border-top: 1px dashed rgba(45, 212, 191, 0.15);
+      border-top: 1px dashed rgba(56, 189, 248, 0.3);
     }
 
     .admin-pill-btn {
-      font-size: 0.72rem;
-      padding: 3px 8px;
+      font-size: 0.74rem;
+      padding: 4px 10px;
       border-radius: 8px;
-      border: 1px solid var(--border-nature);
-      background: rgba(10, 32, 26, 0.75);
+      border: 1px solid var(--border-water);
+      background: #FFFFFF;
       color: var(--text-sub);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      font-weight: 500;
       transition: all 0.2s ease;
     }
 
     .admin-pill-btn:hover {
-      border-color: var(--water-cyan);
-      color: var(--text-main);
+      border-color: var(--water-vivid);
+      background: #F0F9FF;
+      color: var(--water-primary);
     }
 
     .admin-pill-btn.delete:hover {
       border-color: var(--danger);
       color: var(--danger);
-      background: rgba(244, 63, 94, 0.1);
+      background: #FEE2E2;
     }
 
     /* ============================================================
-       IN-APP FULLSCREEN WEB APP VIEWER (No Browser Address Bar)
+       IN-APP FULLSCREEN WEB APP VIEWER
        ============================================================ */
     .viewer-overlay {
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: #030D0A;
+      background: #0F172A;
       display: none;
       flex-direction: column;
       opacity: 0;
@@ -807,9 +836,9 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1010;
-      background: rgba(6, 24, 18, 0.88);
-      border: 1px solid var(--water-cyan);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 20px var(--glow-nature);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1.5px solid var(--water-cyan);
+      box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3);
       border-radius: 30px;
       padding: 6px 14px;
       display: flex;
@@ -825,7 +854,7 @@
       align-items: center;
       gap: 8px;
       padding-right: 8px;
-      border-right: 1px solid rgba(45, 212, 191, 0.3);
+      border-right: 1px solid rgba(56, 189, 248, 0.35);
       white-space: nowrap;
       max-width: 180px;
       overflow: hidden;
@@ -839,9 +868,9 @@
     }
 
     .viewer-app-title {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #FFFFFF;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0F172A;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -851,28 +880,28 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      border: 1px solid rgba(45, 212, 191, 0.25);
-      background: rgba(18, 54, 43, 0.6);
-      color: var(--text-main);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: #FFFFFF;
+      color: var(--text-sub);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       transition: all 0.2s ease;
       flex-shrink: 0;
     }
 
     .viewer-btn:hover {
-      background: var(--water-cyan);
-      color: #041A13;
-      box-shadow: 0 0 10px var(--glow-nature);
+      background: var(--water-vivid);
+      color: #FFFFFF;
+      box-shadow: 0 0 10px var(--glow-water);
     }
 
     .viewer-btn.close {
-      background: rgba(244, 63, 94, 0.2);
-      border-color: rgba(244, 63, 94, 0.4);
-      color: #FDA4AF;
+      background: #FEE2E2;
+      border-color: #FCA5A5;
+      color: #EF4444;
     }
 
     .viewer-btn.close:hover {
@@ -898,7 +927,7 @@
     .viewer-loading-screen {
       position: absolute;
       inset: 0;
-      background: #061913;
+      background: #F0F9FF;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -911,10 +940,10 @@
     .water-ripple-spinner {
       width: 50px;
       height: 50px;
-      border: 3px solid rgba(45, 212, 191, 0.2);
-      border-top-color: var(--water-cyan);
+      border: 3.5px solid rgba(56, 189, 248, 0.25);
+      border-top-color: var(--water-vivid);
       border-radius: 50%;
-      animation: spinRipple 0.9s linear infinite;
+      animation: spinRipple 0.8s linear infinite;
     }
 
     @keyframes spinRipple {
@@ -923,14 +952,14 @@
     }
 
     /* ============================================================
-       MODALS (Nature Glassmorphism Style)
+       MODALS (Bright Blue & White Glassmorphism)
        ============================================================ */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 500;
-      background: rgba(3, 14, 11, 0.78);
-      backdrop-filter: blur(10px);
+      z-index: 2000;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -945,10 +974,10 @@
     }
 
     .modal-dialog {
-      background: linear-gradient(135deg, #0A261E 0%, #061913 100%);
-      border: 1px solid var(--water-cyan);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 30px var(--glow-nature);
-      border-radius: 24px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--water-cyan);
+      box-shadow: 0 20px 50px -10px rgba(14, 165, 233, 0.35);
+      border-radius: 26px;
       width: 100%;
       max-width: 480px;
       padding: 24px;
@@ -968,13 +997,13 @@
       justify-content: space-between;
       margin-bottom: 18px;
       padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-nature);
+      border-bottom: 1.5px solid rgba(56, 189, 248, 0.25);
     }
 
     .modal-title {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      color: #E6FBF2;
+      color: var(--text-main);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -983,7 +1012,7 @@
     .modal-close-btn {
       background: transparent;
       border: none;
-      color: var(--text-sub);
+      color: var(--text-muted);
       font-size: 1.25rem;
       cursor: pointer;
       width: 32px;
@@ -996,18 +1025,18 @@
     }
 
     .modal-close-btn:hover {
-      background: rgba(244, 63, 94, 0.2);
+      background: #FEE2E2;
       color: var(--danger);
     }
 
-    /* Form Fields in Modals */
+    /* Form Fields */
     .form-group {
       margin-bottom: 16px;
     }
 
     .form-label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--text-sub);
       margin-bottom: 6px;
@@ -1015,24 +1044,24 @@
 
     .form-input {
       width: 100%;
-      background: rgba(6, 22, 17, 0.85);
-      border: 1px solid var(--border-nature);
+      background: #F8FAFC;
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
       border-radius: 12px;
       padding: 10px 14px;
       color: var(--text-main);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       outline: none;
       transition: all 0.2s ease;
     }
 
     .form-input:focus {
-      border-color: var(--water-cyan);
-      box-shadow: 0 0 12px var(--glow-nature);
-      background: rgba(10, 32, 25, 0.95);
+      border-color: var(--water-vivid);
+      box-shadow: 0 0 12px var(--glow-water);
+      background: #FFFFFF;
     }
 
     .form-helper {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
       margin-top: 4px;
     }
@@ -1048,22 +1077,21 @@
     .preset-icon-chip {
       height: 42px;
       border-radius: 10px;
-      border: 1px solid var(--border-nature);
-      background: rgba(12, 38, 30, 0.6);
+      border: 1px solid var(--border-water);
+      background: #F0F9FF;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       color: var(--text-sub);
       transition: all 0.2s ease;
     }
 
     .preset-icon-chip:hover, .preset-icon-chip.active {
-      border-color: var(--water-cyan);
-      background: rgba(45, 212, 191, 0.2);
-      color: var(--water-cyan);
-      box-shadow: 0 0 10px var(--glow-nature);
+      border-color: var(--water-vivid);
+      background: #E0F2FE;
+      box-shadow: 0 0 10px var(--glow-water);
     }
 
     /* PIN Keypad Grid */
@@ -1078,13 +1106,14 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      border: 2px solid var(--water-cyan);
+      border: 2px solid var(--water-vivid);
+      background: transparent;
       transition: all 0.2s ease;
     }
 
     .pin-circle.filled {
-      background: var(--water-cyan);
-      box-shadow: 0 0 10px var(--glow-nature);
+      background: var(--water-vivid);
+      box-shadow: 0 0 10px var(--glow-water);
     }
 
     .pin-keypad {
@@ -1098,11 +1127,11 @@
     .pin-key {
       height: 52px;
       border-radius: 14px;
-      border: 1px solid var(--border-nature);
-      background: rgba(18, 54, 43, 0.65);
-      color: #FFFFFF;
-      font-size: 1.25rem;
-      font-weight: 600;
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      background: #F8FAFC;
+      color: #0F172A;
+      font-size: 1.3rem;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1112,15 +1141,16 @@
     }
 
     .pin-key:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--water-cyan);
-      box-shadow: 0 0 12px var(--glow-nature);
+      background: #E0F2FE;
+      border-color: var(--water-vivid);
+      color: var(--water-primary);
+      box-shadow: 0 0 12px var(--glow-water);
     }
 
     .pin-key:active {
       transform: scale(0.92);
-      background: var(--water-cyan);
-      color: #041712;
+      background: var(--water-vivid);
+      color: #FFFFFF;
     }
 
     /* Toast Notification */
@@ -1129,17 +1159,18 @@
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: rgba(6, 24, 18, 0.95);
-      border: 1px solid var(--water-cyan);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--glow-nature);
+      background: #FFFFFF;
+      border: 1.5px solid var(--water-vivid);
+      box-shadow: 0 10px 30px rgba(14, 165, 233, 0.25);
       border-radius: 30px;
       padding: 10px 22px;
-      color: #E6FBF2;
-      font-size: 0.88rem;
+      color: #0F172A;
+      font-size: 0.9rem;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 10px;
-      z-index: 2000;
+      z-index: 4000;
       pointer-events: none;
       opacity: 0;
       transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -1151,7 +1182,7 @@
     }
 
     /* ============================================================
-       MOBILE RESPONSIVENESS (White-space nowrap compliance)
+       MOBILE RESPONSIVENESS (Strict Single-Line Header)
        ============================================================ */
     @media (max-width: 768px) {
       header.mizuiku-header {
@@ -1163,11 +1194,7 @@
       }
 
       .brand-title {
-        font-size: 1.05rem;
-      }
-
-      .brand-subtitle {
-        display: none;
+        font-size: 1.15rem;
       }
 
       .brand-logo-wrap {
@@ -1200,31 +1227,44 @@
 </head>
 <body>
 
-  <!-- Ambient Nature Effects -->
+  <!-- Ambient Light Blue Water Background Layer -->
   <div class="nature-bg-layer">
     <div class="water-orb water-orb-1"></div>
     <div class="water-orb water-orb-2"></div>
-    <div class="water-orb water-orb-3"></div>
-    <svg class="nature-waves" viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none">
-      <path d="M0,64 C320,120 420,0 720,48 C1020,96 1120,24 1440,64 L1440,120 L0,120 Z" fill="rgba(45, 212, 191, 0.08)"></path>
-      <path d="M0,80 C360,20 600,100 900,50 C1200,0 1320,80 1440,80 L1440,120 L0,120 Z" fill="rgba(16, 185, 129, 0.05)"></path>
+    <svg class="nature-waves" viewBox="0 0 1440 140" fill="none" preserveAspectRatio="none">
+      <path d="M0,64 C320,120 420,0 720,48 C1020,96 1120,24 1440,64 L1440,140 L0,140 Z" fill="rgba(56, 189, 248, 0.15)"></path>
+      <path d="M0,80 C360,20 600,100 900,50 C1200,0 1320,80 1440,80 L1440,140 L0,140 Z" fill="rgba(14, 165, 233, 0.12)"></path>
     </svg>
   </div>
 
   <!-- ============================================================
-       HEADER (Single-Line Locked on Mobile)
+       FULL SCREEN LOADER (หน้าโหลดระหว่างทำงาน / Google Sheets)
+       ============================================================ -->
+  <div class="nature-loader-overlay active" id="mizuikuLoader">
+    <div class="nature-loader-box">
+      <div class="loader-icon-container">
+        <div class="water-ripple-ring"></div>
+        <div class="water-ripple-ring ring-2"></div>
+        <img src="https://i.postimg.cc/d01s2X3T/MIzuiku.png" alt="Mizuiku" class="loader-logo-img">
+      </div>
+      <div class="loader-text" id="loaderStatusText">กำลังโหลดข้อมูลระบบ...</div>
+      <div class="loader-subtext">เชื่อมโยงสายน้ำข้อมูล Google Sheets</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HEADER (Strict Single-Line on Mobile, Brand Title Only)
        ============================================================ -->
   <header class="mizuiku-header">
     <div class="header-container">
       
-      <!-- Brand & Logo -->
-      <div class="brand-section" onclick="window.scrollTo({top:0, behavior:'smooth'})" style="cursor: pointer;">
+      <!-- Brand & Logo (Title only: Mizuiku) -->
+      <div class="brand-section" onclick="window.scrollTo({top:0, behavior:'smooth'})">
         <div class="brand-logo-wrap">
-          <img src="https://i.postimg.cc/d01s2X3T/MIzuiku.png" alt="Mizuiku Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 11px;">
+          <img src="https://i.postimg.cc/d01s2X3T/MIzuiku.png" alt="Mizuiku Logo" class="brand-logo-img">
         </div>
         <div class="brand-text-block">
           <div class="brand-title">Mizuiku</div>
-          <div class="brand-subtitle">สายน้ำและธรรมชาติ Hub</div>
         </div>
       </div>
 
@@ -1235,12 +1275,6 @@
         <div class="date-badge" id="thaiDateBadge" title="วันที่ตามปฏิทินไทย พ.ศ.">
           <i class="bi bi-calendar3"></i>
           <span id="dateDisplay">--/--/----</span>
-        </div>
-
-        <!-- Cloud Sync Badge -->
-        <div class="cloud-pill" id="cloudStatusPill" onclick="openCloudModal()" title="คลิกเพื่อตั้งค่า Cloud Sync">
-          <span class="dot-pulse"></span>
-          <span id="cloudStatusText">Local</span>
         </div>
 
         <!-- Admin Mode Switcher -->
@@ -1264,7 +1298,7 @@
        ============================================================ -->
   <main class="mizuiku-main">
     
-    <!-- Action Bar: Search & Add App -->
+    <!-- Action Bar: Search & Add App (No Cloud Settings Button) -->
     <section class="action-bar">
       
       <div class="search-box-wrap">
@@ -1276,11 +1310,7 @@
       </div>
 
       <div class="top-action-buttons">
-        <button class="btn-nature-outline" onclick="openCloudModal()" title="ตั้งค่าการเชื่อมต่อ Google Sheets">
-          <i class="bi bi-cloud-arrow-up"></i>
-          <span>ตั้งค่า Cloud</span>
-        </button>
-        <button class="btn-nature-primary" onclick="openAddAppModal()">
+        <button class="btn-water-primary" onclick="openAddAppModal()">
           <i class="bi bi-plus-lg"></i>
           <span>เพิ่มเว็บแอป</span>
         </button>
@@ -1334,7 +1364,7 @@
     <div class="viewer-iframe-wrap">
       <div class="viewer-loading-screen" id="viewerLoader">
         <div class="water-ripple-spinner"></div>
-        <div style="font-size: 0.9rem; color: #A7F3D0;">กำลังเชื่อมต่อสายน้ำข้อมูล...</div>
+        <div style="font-size: 0.95rem; font-weight: 600; color: #0284C7;">กำลังเชื่อมต่อสายน้ำข้อมูล...</div>
       </div>
       <iframe class="viewer-iframe" id="viewerIframe" src="about:blank" allow="camera; microphone; geolocation; fullscreen; clipboard-read; clipboard-write;" onload="onIframeLoaded()"></iframe>
     </div>
@@ -1348,7 +1378,7 @@
     <div class="modal-dialog">
       <div class="modal-header">
         <div class="modal-title" id="appModalTitle">
-          <i class="bi bi-flower1" style="color: var(--water-cyan);"></i>
+          <i class="bi bi-flower1" style="color: var(--water-primary);"></i>
           <span>เพิ่มเว็บแอปใหม่</span>
         </div>
         <button class="modal-close-btn" onclick="closeAppModal()">
@@ -1398,15 +1428,15 @@
 
         <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px;">
           <label class="form-label" style="margin-bottom: 0;">สถานะการใช้งาน</label>
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; cursor: pointer;">
-            <input type="checkbox" id="formAppActive" checked style="accent-color: var(--nature-mint); width: 18px; height: 18px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; cursor: pointer;">
+            <input type="checkbox" id="formAppActive" checked style="accent-color: var(--water-primary); width: 18px; height: 18px;">
             <span>เปิดใช้งานปกติ</span>
           </label>
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 24px;">
-          <button type="button" class="btn-nature-outline" style="flex: 1; justify-content: center;" onclick="closeAppModal()">ยกเลิก</button>
-          <button type="submit" class="btn-nature-primary" style="flex: 1.5; justify-content: center;">บันทึกข้อมูล</button>
+          <button type="button" class="btn-card-icon" style="flex: 1; width: auto; border-radius: 12px; font-weight: 600;" onclick="closeAppModal()">ยกเลิก</button>
+          <button type="submit" class="btn-water-primary" style="flex: 1.5; justify-content: center;">บันทึกข้อมูล</button>
         </div>
       </form>
     </div>
@@ -1419,7 +1449,7 @@
     <div class="modal-dialog" style="max-width: 360px;">
       <div class="modal-header">
         <div class="modal-title">
-          <i class="bi bi-shield-lock" style="color: var(--water-cyan);"></i>
+          <i class="bi bi-shield-lock" style="color: var(--water-primary);"></i>
           <span>รหัสผ่านแอดมิน</span>
         </div>
         <button class="modal-close-btn" onclick="closePinModal()">
@@ -1428,7 +1458,7 @@
       </div>
 
       <div style="text-align: center;">
-        <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 8px;">กรุณากรอกรหัส PIN 4 หลักเพื่อเข้าสู่โหมดจัดการระบบ</p>
+        <p style="font-size: 0.88rem; color: var(--text-sub); margin-bottom: 8px;">กรุณากรอกรหัส PIN 4 หลักเพื่อเข้าสู่โหมดจัดการระบบ</p>
         
         <div class="pin-display-wrap">
           <div class="pin-circle" id="pinDot0"></div>
@@ -1447,54 +1477,9 @@
           <button type="button" class="pin-key" onclick="pressPin('7')">7</button>
           <button type="button" class="pin-key" onclick="pressPin('8')">8</button>
           <button type="button" class="pin-key" onclick="pressPin('9')">9</button>
-          <button type="button" class="pin-key" onclick="clearPin()" style="font-size: 0.9rem; color: var(--text-sub);">ล้าง</button>
+          <button type="button" class="pin-key" onclick="clearPin()" style="font-size: 0.9rem; color: var(--text-muted);">ล้าง</button>
           <button type="button" class="pin-key" onclick="pressPin('0')">0</button>
-          <button type="button" class="pin-key" onclick="backspacePin()" style="font-size: 1.1rem; color: var(--water-cyan);"><i class="bi bi-backspace"></i></button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       MODAL: CLOUD SETTINGS (Google Apps Script Sync)
-       ============================================================ -->
-  <div class="modal-backdrop" id="cloudModal">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <div class="modal-title">
-          <i class="bi bi-cloud-arrow-up" style="color: var(--water-cyan);"></i>
-          <span>ตั้งค่า Cloud Sync</span>
-        </div>
-        <button class="modal-close-btn" onclick="closeCloudModal()">
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Google Apps Script Web App URL</label>
-        <input type="url" class="form-input" id="gasUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
-        <div class="form-helper">วาง Web App URL ที่ได้จากการ Deploy โปรเจกต์ `Mizuiku_Backend` ใน Google Apps Script</div>
-      </div>
-
-      <div style="display: flex; gap: 8px; margin-bottom: 20px;">
-        <button type="button" class="btn-nature-outline" style="flex: 1; justify-content: center;" onclick="testCloudConnection()">
-          <i class="bi bi-activity"></i> ทดสอบเชื่อมต่อ
-        </button>
-        <button type="button" class="btn-nature-primary" style="flex: 1.2; justify-content: center;" onclick="saveCloudSettings()">
-          <i class="bi bi-check2"></i> บันทึก URL
-        </button>
-      </div>
-
-      <div style="border-top: 1px dashed var(--border-nature); padding-top: 16px; margin-top: 16px;">
-        <div class="form-label" style="margin-bottom: 8px;">สำรองและกู้คืนข้อมูล (JSON)</div>
-        <div style="display: flex; gap: 8px;">
-          <button type="button" class="btn-nature-outline" style="flex: 1; justify-content: center;" onclick="exportAppsJson()">
-            <i class="bi bi-download"></i> สำรองไฟล์
-          </button>
-          <button type="button" class="btn-nature-outline" style="flex: 1; justify-content: center;" onclick="document.getElementById('importJsonFile').click()">
-            <i class="bi bi-upload"></i> นำเข้าไฟล์
-          </button>
-          <input type="file" id="importJsonFile" accept=".json" style="display: none;" onchange="importAppsJson(event)">
+          <button type="button" class="pin-key" onclick="backspacePin()" style="font-size: 1.15rem; color: var(--water-primary);"><i class="bi bi-backspace"></i></button>
         </div>
       </div>
     </div>
@@ -1504,7 +1489,7 @@
        TOAST NOTIFICATION
        ============================================================ -->
   <div class="nature-toast" id="toast">
-    <i class="bi bi-check-circle-fill" style="color: var(--water-cyan);"></i>
+    <i class="bi bi-check-circle-fill" style="color: var(--water-primary); font-size: 1.1rem;"></i>
     <span id="toastMsg">ข้อความแจ้งเตือน</span>
   </div>
 
@@ -1513,10 +1498,10 @@
        ============================================================ -->
   <script>
     // ============================================================
-    // STATE & CONFIGURATION
+    // STATE & CONFIGURATION (Google Sheets Automatic Sync)
     // ============================================================
-    const STORAGE_KEY = 'mizuiku_apps_data';
-    const GAS_URL_KEY = 'mizuiku_gas_api_url';
+    const STORAGE_KEY = 'mizuiku_apps_data_v2';
+    const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbznuwVPbNJ-QZyKqpJayU2XAIpFrT-FhYzXqaSFyzDdYziPmZiNI-936rHR4oV6FVpT/exec';
     const ADMIN_PIN_KEY = 'mizuiku_admin_pin';
     const DEFAULT_PIN = '8055';
 
@@ -1525,16 +1510,58 @@
     let searchQuery = '';
     let deferredPrompt = null;
     let currentViewerApp = null;
+    let isFetchingCloud = false;
+    let isSavingCloud = false;
 
     // ============================================================
     // INITIALIZATION
     // ============================================================
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       initThaiDate();
       renderApps();
-      checkCloudSync();
       initPwaEvents();
+
+      // Show splash loader on start and fetch latest from Google Sheets
+      showLoader('กำลังเชื่อมต่อข้อมูล Google Sheets...');
+      try {
+        await Promise.race([
+          fetchAppsFromCloud(true),
+          new Promise(resolve => setTimeout(resolve, 2000)) // Fallback timeout if slow
+        ]);
+      } catch (err) {
+        console.warn('Initial cloud sync error:', err);
+      } finally {
+        hideLoader();
+      }
     });
+
+    // Background Auto-Sync: Poll every 4 seconds for instant multi-device updates
+    setInterval(() => {
+      fetchAppsFromCloud(false);
+    }, 4000);
+
+    // Multi-Device Auto-Sync on Tab Focus & Visibility Change
+    window.addEventListener('focus', () => fetchAppsFromCloud(false));
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        fetchAppsFromCloud(false);
+      }
+    });
+
+    // ============================================================
+    // FULL SCREEN LOADER HELPERS (หน้าโหลดระหว่างทำงาน)
+    // ============================================================
+    function showLoader(message = 'กำลังโหลดข้อมูลระบบ...') {
+      const loader = document.getElementById('mizuikuLoader');
+      const textEl = document.getElementById('loaderStatusText');
+      if (textEl) textEl.textContent = message;
+      if (loader) loader.classList.add('active');
+    }
+
+    function hideLoader() {
+      const loader = document.getElementById('mizuikuLoader');
+      if (loader) loader.classList.remove('active');
+    }
 
     // ============================================================
     // THAI BUDDHIST ERA DATE (dd/mm/yyyy พ.ศ.)
@@ -1552,7 +1579,7 @@
     }
 
     // ============================================================
-    // DATA ACCESS: LOCALSTORAGE & CLOUD
+    // DATA ACCESS: LOCAL STORAGE & GOOGLE SHEETS CLOUD
     // ============================================================
     function getStoredApps() {
       try {
@@ -1567,17 +1594,69 @@
       return [];
     }
 
-    function saveStoredApps(apps) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(apps));
-      syncWithCloudIfConfigured(apps);
-    }
-
-    function getGasUrl() {
-      return localStorage.getItem(GAS_URL_KEY) || '';
-    }
-
     function getAdminPin() {
       return localStorage.getItem(ADMIN_PIN_KEY) || DEFAULT_PIN;
+    }
+
+    // Read from Google Sheets in background
+    async function fetchAppsFromCloud(forceRender = false) {
+      if (isFetchingCloud || isSavingCloud) return;
+      isFetchingCloud = true;
+
+      try {
+        const res = await fetch(`${DEFAULT_GAS_URL}?app=mizuiku&t=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (isSavingCloud) return;
+
+          if (data && data.status === 'success' && Array.isArray(data.data)) {
+            const cloudApps = data.data;
+            const localJson = localStorage.getItem(STORAGE_KEY);
+            const cloudJson = JSON.stringify(cloudApps);
+
+            if (localJson !== cloudJson) {
+              localStorage.setItem(STORAGE_KEY, cloudJson);
+              renderApps();
+            } else if (forceRender) {
+              renderApps();
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Background sync offline fallback:', err);
+      } finally {
+        isFetchingCloud = false;
+      }
+    }
+
+    // Save to Google Sheets
+    async function saveAppsToCloud(apps) {
+      isSavingCloud = true;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(apps));
+      renderApps();
+
+      try {
+        const res = await fetch(DEFAULT_GAS_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'saveApps',
+            app: 'mizuiku',
+            apps: apps
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.status === 'success' && Array.isArray(data.data)) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data.data));
+            renderApps();
+          }
+        }
+      } catch (err) {
+        console.warn('Cloud save fallback to local storage:', err);
+      } finally {
+        isSavingCloud = false;
+      }
     }
 
     // ============================================================
@@ -1596,29 +1675,19 @@
                (app.url && app.url.toLowerCase().includes(q));
       });
 
-      // 1. If no apps at all in storage (Empty State as requested)
+      // 1. If no apps at all in storage (Empty State)
       if (allApps.length === 0) {
         container.innerHTML = `
           <div class="empty-state-card">
             <div class="empty-icon-wrap">
-              <svg class="empty-icon-svg" viewBox="0 0 512 512">
-                <defs>
-                  <linearGradient id="emptyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#38BDF8"/>
-                    <stop offset="50%" stop-color="#2DD4BF"/>
-                    <stop offset="100%" stop-color="#10B981"/>
-                  </linearGradient>
-                </defs>
-                <path d="M256 60 C256 60 130 220 130 330 C130 400 186 455 256 455 C326 455 382 400 382 330 C382 220 256 60 256 60 Z" fill="url(#emptyGrad)"/>
-                <path d="M256 200 C270 260 320 280 340 330 C310 340 280 320 270 290 Z" fill="#34D399" opacity="0.9"/>
-              </svg>
+              <img src="https://i.postimg.cc/d01s2X3T/MIzuiku.png" alt="Mizuiku" class="empty-icon-img">
             </div>
             <div class="empty-title">ยินดีต้อนรับสู่ Mizuiku</div>
             <div class="empty-desc">
               สายน้ำแห่งการเรียนรู้และการรวมศูนย์เว็บแอปของคุณ<br>
               ยังไม่มีเว็บแอปในระบบ เริ่มต้นสร้างระบบนิเวศการทำงานของคุณได้ทันที
             </div>
-            <button class="btn-nature-primary" onclick="openAddAppModal()" style="padding: 12px 28px; font-size: 0.95rem;">
+            <button class="btn-water-primary" onclick="openAddAppModal()" style="padding: 12px 28px; font-size: 0.95rem;">
               <i class="bi bi-plus-circle-fill"></i>
               <span>เพิ่มเว็บแอปแรกของคุณ</span>
             </button>
@@ -1631,10 +1700,10 @@
       if (filteredApps.length === 0) {
         container.innerHTML = `
           <div class="empty-state-card" style="padding: 36px 20px;">
-            <i class="bi bi-search" style="font-size: 2.5rem; color: var(--water-cyan); opacity: 0.6; margin-bottom: 12px; display: block;"></i>
+            <i class="bi bi-search" style="font-size: 2.5rem; color: var(--water-primary); opacity: 0.6; margin-bottom: 12px; display: block;"></i>
             <div class="empty-title" style="font-size: 1.15rem;">ไม่พบเว็บแอปที่ค้นหา</div>
-            <div class="empty-desc" style="font-size: 0.85rem; margin-bottom: 16px;">ลองค้นหาด้วยคำอื่น หรือกดล้างการค้นหา</div>
-            <button class="btn-nature-outline" onclick="clearSearch()">ล้างการค้นหา</button>
+            <div class="empty-desc" style="font-size: 0.88rem; margin-bottom: 16px;">ลองค้นหาด้วยคำอื่น หรือกดล้างการค้นหา</div>
+            <button class="btn-card-icon" style="width: auto; padding: 8px 18px; margin: 0 auto; border-radius: 12px; font-weight: 600;" onclick="clearSearch()">ล้างการค้นหา</button>
           </div>
         `;
         return;
@@ -1706,15 +1775,13 @@
         return { isImg: true, src: app.icon };
       }
       if (app.icon && !app.icon.startsWith('http')) {
-        // Emoji or character
         return { isImg: false, src: app.icon };
       }
-      // Fallback
       return { isImg: false, src: '💧' };
     }
 
     function handleIconError(img, name) {
-      img.outerHTML = `<span class="fallback-icon" style="font-size:1.4rem;">${name ? name.charAt(0).toUpperCase() : '💧'}</span>`;
+      img.outerHTML = `<span class="fallback-icon" style="font-size:1.5rem;">${name ? name.charAt(0).toUpperCase() : '💧'}</span>`;
     }
 
     function escapeHtml(text) {
@@ -1756,7 +1823,6 @@
       overlay.classList.add('active');
       iframe.src = app.url;
 
-      // Lock background scrolling
       document.body.style.overflow = 'hidden';
     }
 
@@ -1836,7 +1902,7 @@
         return;
       }
 
-      document.getElementById('appModalTitle').innerHTML = '<i class="bi bi-flower1" style="color: var(--water-cyan);"></i> เพิ่มเว็บแอปใหม่';
+      document.getElementById('appModalTitle').innerHTML = '<i class="bi bi-plus-circle" style="color: var(--water-primary);"></i> เพิ่มเว็บแอปใหม่';
       document.getElementById('formAppId').value = '';
       document.getElementById('formAppName').value = '';
       document.getElementById('formAppUrl').value = '';
@@ -1852,7 +1918,7 @@
       const app = apps.find(a => a.id === appId);
       if (!app) return;
 
-      document.getElementById('appModalTitle').innerHTML = '<i class="bi bi-pencil-square" style="color: var(--water-cyan);"></i> แก้ไขเว็บแอป';
+      document.getElementById('appModalTitle').innerHTML = '<i class="bi bi-pencil-square" style="color: var(--water-primary);"></i> แก้ไขเว็บแอป';
       document.getElementById('formAppId').value = app.id;
       document.getElementById('formAppName').value = app.name || '';
       document.getElementById('formAppUrl').value = app.url || '';
@@ -1871,7 +1937,7 @@
       document.getElementById('formAppIcon').value = iconEmoji;
     }
 
-    function handleAppFormSubmit(e) {
+    async function handleAppFormSubmit(e) {
       e.preventDefault();
       const appId = document.getElementById('formAppId').value;
       const name = document.getElementById('formAppName').value.trim();
@@ -1885,17 +1951,17 @@
         return;
       }
 
+      closeAppModal();
+      showLoader(appId ? 'กำลังบันทึกการแก้ไขลง Google Sheets...' : 'กำลังบันทึกแอปใหม่ลง Google Sheets...');
+
       let apps = getStoredApps();
 
       if (appId) {
-        // Edit existing
         const index = apps.findIndex(a => a.id === appId);
         if (index !== -1) {
           apps[index] = { ...apps[index], name, url, category, icon, active };
         }
-        showToast('บันทึกการแก้ไขเรียบร้อยแล้ว');
       } else {
-        // Add new
         const newApp = {
           id: 'app-' + Date.now(),
           name,
@@ -1906,34 +1972,35 @@
           order: apps.length + 1
         };
         apps.push(newApp);
-        showToast('เพิ่มเว็บแอปสำเร็จแล้ว');
       }
 
-      saveStoredApps(apps);
-      closeAppModal();
-      renderApps();
+      await saveAppsToCloud(apps);
+      hideLoader();
+      showToast(appId ? 'บันทึกการแก้ไขเรียบร้อยแล้ว' : 'เพิ่มเว็บแอปสำเร็จแล้ว');
     }
 
-    function toggleAppActive(appId) {
+    async function toggleAppActive(appId) {
       let apps = getStoredApps();
       const app = apps.find(a => a.id === appId);
       if (!app) return;
 
+      showLoader('กำลังอัปเดตสถานะแอป...');
       app.active = !app.active;
-      saveStoredApps(apps);
-      renderApps();
+      await saveAppsToCloud(apps);
+      hideLoader();
       showToast(app.active ? 'เปิดใช้งานแอปแล้ว' : 'ปิดปรับปรุงชั่วคราว');
     }
 
-    function confirmDeleteApp(appId) {
+    async function confirmDeleteApp(appId) {
       const apps = getStoredApps();
       const app = apps.find(a => a.id === appId);
       if (!app) return;
 
       if (confirm(`คุณต้องการลบเว็บแอป "${app.name}" หรือไม่?`)) {
+        showLoader('กำลังลบข้อมูลจาก Google Sheets...');
         const updated = apps.filter(a => a.id !== appId);
-        saveStoredApps(updated);
-        renderApps();
+        await saveAppsToCloud(updated);
+        hideLoader();
         showToast('ลบเว็บแอปเรียบร้อยแล้ว');
       }
     }
@@ -2033,144 +2100,6 @@
         showToast('รหัส PIN ไม่ถูกต้อง (รหัสเริ่มต้นคือ 8055)');
         clearPin();
       }
-    }
-
-    // ============================================================
-    // CLOUD SYNC (GOOGLE APPS SCRIPT)
-    // ============================================================
-    function openCloudModal() {
-      const urlInput = document.getElementById('gasUrlInput');
-      urlInput.value = getGasUrl();
-      document.getElementById('cloudModal').classList.add('active');
-    }
-
-    function closeCloudModal() {
-      document.getElementById('cloudModal').classList.remove('active');
-    }
-
-    function saveCloudSettings() {
-      const url = document.getElementById('gasUrlInput').value.trim();
-      localStorage.setItem(GAS_URL_KEY, url);
-      showToast('บันทึกการตั้งค่า Cloud สำเร็จ');
-      closeCloudModal();
-      checkCloudSync(true);
-    }
-
-    function updateCloudStatus(status, text) {
-      const pill = document.getElementById('cloudStatusPill');
-      const textEl = document.getElementById('cloudStatusText');
-      if (!pill || !textEl) return;
-
-      pill.className = 'cloud-pill';
-      if (status === 'syncing') {
-        pill.classList.add('syncing');
-      } else if (status === 'local') {
-        pill.classList.add('local-only');
-      }
-
-      textEl.textContent = text;
-    }
-
-    async function checkCloudSync(forceFetch = false) {
-      const url = getGasUrl();
-      if (!url) {
-        updateCloudStatus('local', 'Local');
-        return;
-      }
-
-      updateCloudStatus('syncing', 'กำลังซิงค์...');
-
-      try {
-        const response = await fetch(`${url}?action=getApps&t=${Date.now()}`);
-        if (response.ok) {
-          const res = await response.json();
-          if (res.status === 'success' && Array.isArray(res.data)) {
-            updateCloudStatus('connected', 'Cloud Synced');
-            if (forceFetch || res.data.length > 0) {
-              localStorage.setItem(STORAGE_KEY, JSON.stringify(res.data));
-              renderApps();
-            }
-          }
-        } else {
-          updateCloudStatus('local', 'Cloud Offline');
-        }
-      } catch (err) {
-        console.warn('Cloud sync offline fallback:', err);
-        updateCloudStatus('local', 'Local Mode');
-      }
-    }
-
-    async function syncWithCloudIfConfigured(apps) {
-      const url = getGasUrl();
-      if (!url) return;
-
-      updateCloudStatus('syncing', 'กำลังบันทึก...');
-      try {
-        await fetch(url, {
-          method: 'POST',
-          mode: 'no-cors', // Standard Google Apps Script POST trigger
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'saveApps', apps: apps })
-        });
-        updateCloudStatus('connected', 'Cloud Synced');
-      } catch (err) {
-        console.error('Save to cloud failed:', err);
-        updateCloudStatus('local', 'บันทึกในเครื่อง');
-      }
-    }
-
-    async function testCloudConnection() {
-      const url = document.getElementById('gasUrlInput').value.trim();
-      if (!url) {
-        showToast('กรุณากรอก Web App URL ก่อน');
-        return;
-      }
-
-      showToast('กำลังทดสอบการเชื่อมต่อ...');
-      try {
-        const res = await fetch(`${url}?action=getApps&t=${Date.now()}`);
-        if (res.ok) {
-          const data = await res.json();
-          showToast(`เชื่อมต่อสำเร็จ! พบข้อมูล ${data.count || 0} รายการ`);
-        } else {
-          showToast('ไม่สามารถเชื่อมต่อได้ ตรวจสอบสิทธิ์ Anyone');
-        }
-      } catch (e) {
-        showToast('เกิดข้อผิดพลาดในการเชื่อมต่อ ตรวจสอบ URL');
-      }
-    }
-
-    function exportAppsJson() {
-      const apps = getStoredApps();
-      const blob = new Blob([JSON.stringify(apps, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `mizuiku_backup_${Date.now()}.json`;
-      a.click();
-      showToast('ส่งออกไฟล์สำรองสำเร็จ');
-    }
-
-    function importAppsJson(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const imported = JSON.parse(e.target.result);
-          if (Array.isArray(imported)) {
-            saveStoredApps(imported);
-            renderApps();
-            showToast(`นำเข้าสำเร็จ ${imported.length} รายการ`);
-            closeCloudModal();
-          } else {
-            showToast('รูปแบบไฟล์ไม่ถูกต้อง');
-          }
-        } catch (err) {
-          showToast('ไม่สามารถอ่านไฟล์ JSON ได้');
-        }
-      };
-      reader.readAsText(file);
     }
 
     // ============================================================
