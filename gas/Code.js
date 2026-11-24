@@ -94,6 +94,55 @@ function getTargetSheet(ss, appName) {
   return sheet;
 }
 
+// Helper: Automatic Favicon Detection from URL HTML
+function detectFaviconFromUrl(targetUrl) {
+  if (!targetUrl) return '';
+  let url = targetUrl.trim();
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+  try {
+    const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true });
+    const html = resp.getContentText();
+    
+    const linkMatch = html.match(/<link[^>]+rel=["'](?:shortcut\s+)?(?:apple-touch-)?icon["'][^>]*>/i)
+                   || html.match(/<link[^>]+(?:shortcut\s+)?(?:apple-touch-)?icon[^>]+rel=["'][^"']*["'][^>]*>/i);
+    
+    if (linkMatch) {
+      const hrefMatch = linkMatch[0].match(/href=["']([^"']+)["']/i);
+      if (hrefMatch && hrefMatch[1]) {
+        let href = hrefMatch[1].trim();
+        if (href.startsWith('//')) return 'https:' + href;
+        if (href.startsWith('http')) return href;
+        
+        // Handle relative URL
+        const base = url.split('?')[0].split('#')[0];
+        if (href.startsWith('/')) {
+          const originMatch = base.match(/^https?:\/\/[^\/]+/i);
+          return (originMatch ? originMatch[0] : '') + href;
+        }
+        const lastSlash = base.lastIndexOf('/');
+        const dir = lastSlash !== -1 ? base.substring(0, lastSlash + 1) : (base + '/');
+        return dir + href.replace(/^\.\//, '');
+      }
+    }
+
+    // Fallback: Check if targetUrl/favicon.ico exists
+    const originMatch = url.match(/^https?:\/\/[^\/]+/i);
+    if (originMatch) {
+      const fallbackIco = originMatch[0] + '/favicon.ico';
+      try {
+        const icoResp = UrlFetchApp.fetch(fallbackIco, { muteHttpExceptions: true });
+        if (icoResp.getResponseCode() === 200) {
+          return fallbackIco;
+        }
+      } catch (err) {}
+    }
+  } catch (e) {
+    Logger.log("detectFaviconFromUrl error for " + url + ": " + e);
+  }
+  return 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
+}
+
 // 3. Read All Apps from Sheet (Lock protected)
 function getAppsFromSheet(appName) {
   const isMizuiku = (appName || '').toLowerCase() === 'mizuiku';
@@ -121,15 +170,29 @@ function getAppsFromSheet(appName) {
     const orderIdx = headers.indexOf("order");
 
     const apps = [];
+    let needsResave = false;
+
     for (let i = 1; i < data.length; i++) {
       const row = data[i];
       if (!row || (!row[idIdx] && !row[urlIdx])) continue;
       
+      let rawIcon = String(row[iconIdx] || '');
+      const appUrl = String(row[urlIdx] || '');
+
+      // Auto-repair bad google s2 favicons
+      if ((!rawIcon || rawIcon.includes('google.com/s2')) && appUrl) {
+        const detected = detectFaviconFromUrl(appUrl);
+        if (detected) {
+          rawIcon = detected;
+          needsResave = true;
+        }
+      }
+
       apps.push({
         id: String(row[idIdx] || ('app-' + i)),
         name: String(row[nameIdx] || ''),
-        url: String(row[urlIdx] || ''),
-        icon: String(row[iconIdx] || ''),
+        url: appUrl,
+        icon: rawIcon,
         category: catIdx !== -1 ? String(row[catIdx] || 'ทั่วไป') : 'ทั่วไป',
         active: row[activeIdx] === true || String(row[activeIdx]).toLowerCase() === 'true',
         order: Number(row[orderIdx]) || i
@@ -137,6 +200,11 @@ function getAppsFromSheet(appName) {
     }
 
     apps.sort((a, b) => a.order - b.order);
+
+    if (needsResave && apps.length > 0) {
+      try { saveAppsToSheet(apps, appName); } catch (e) {}
+    }
+
     return apps.length > 0 ? apps : defaultApps;
   } catch (err) {
     Logger.log("getAppsFromSheet error: " + err);
@@ -161,6 +229,13 @@ function saveAppsToSheet(apps, appName) {
     const sheet = getTargetSheet(ss, appName);
     
     const existingLastRow = sheet.getLastRow();
+
+    // Ensure all icons are populated
+    apps.forEach(app => {
+      if ((!app.icon || app.icon.includes('google.com/s2')) && app.url) {
+        app.icon = detectFaviconFromUrl(app.url);
+      }
+    });
 
     const rows = [
       ["id", "name", "url", "icon", "category", "active", "order", "updated_at"],
@@ -195,8 +270,23 @@ function saveAppsToSheet(apps, appName) {
 
 // 5. HTTP GET Handler
 function doGet(e) {
-  const app = (e && e.parameter && e.parameter.app) || 'bosu';
+  const action = e && e.parameter && e.parameter.action;
   const callback = e && e.parameter && e.parameter.callback;
+
+  // Favicon detection helper endpoint
+  if (action === "detectFavicon") {
+    const url = e.parameter.url;
+    const favicon = detectFaviconFromUrl(url);
+    const out = { status: "success", favicon: favicon };
+    if (callback) {
+      return ContentService.createTextOutput(callback + "(" + JSON.stringify(out) + ");")
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    return ContentService.createTextOutput(JSON.stringify(out))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  const app = (e && e.parameter && e.parameter.app) || 'bosu';
   const apps = getAppsFromSheet(app);
   
   const res = {

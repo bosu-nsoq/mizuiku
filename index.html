@@ -225,7 +225,7 @@
     }
 
     /* ============================================================
-       HEADER (Strict Single-Line on Mobile, Brand Title Only, No Date)
+       HEADER (Single-Line on Mobile, Brand Title Only, No Date)
        ============================================================ */
     header.mizuiku-header {
       position: sticky;
@@ -448,7 +448,7 @@
       transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
       position: relative;
       user-select: none;
-      min-height: 135px;
+      min-height: 138px;
     }
 
     .app-card:hover {
@@ -458,9 +458,16 @@
       background: var(--bg-card-hover);
     }
 
+    /* Maintenance Style */
     .app-card.maintenance-card {
-      opacity: 0.7;
+      opacity: 0.8;
       border-color: rgba(245, 158, 11, 0.45);
+      background: rgba(254, 252, 232, 0.85);
+    }
+
+    .app-card.maintenance-card .app-icon-frame {
+      filter: grayscale(35%);
+      border-color: rgba(245, 158, 11, 0.5);
     }
 
     /* Drag & Drop Reorder Styles */
@@ -512,7 +519,7 @@
       font-weight: 700;
     }
 
-    /* Clean App Title (No Description, No Category) */
+    /* Clean App Title */
     .app-name {
       font-size: 0.92rem;
       font-weight: 700;
@@ -527,7 +534,21 @@
       padding: 0 2px;
     }
 
-    /* Admin Action Buttons on Card */
+    /* Maintenance Badge for Guest */
+    .guest-maintenance-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #D97706;
+      background: #FEF3C7;
+      padding: 2px 6px;
+      border-radius: 6px;
+      margin-top: 5px;
+    }
+
+    /* Admin Action Controls & Status Switch */
     .admin-card-actions {
       position: absolute;
       top: 6px;
@@ -585,6 +606,63 @@
       cursor: grabbing;
     }
 
+    /* Switch เปิด/ปิด ระบบบน Card (โหมด Admin) */
+    .card-status-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 14px;
+      background: #F0F9FF;
+      border: 1px solid var(--border-water);
+      transition: all 0.2s ease;
+      z-index: 5;
+    }
+
+    .card-status-toggle:hover {
+      border-color: var(--water-vivid);
+      background: #E0F2FE;
+    }
+
+    .custom-toggle {
+      width: 28px;
+      height: 16px;
+      border-radius: 20px;
+      background: #CBD5E1;
+      position: relative;
+      transition: background 0.25s ease;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .custom-toggle.is-on {
+      background: var(--nature-mint);
+    }
+
+    .toggle-knob {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.25s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+
+    .custom-toggle.is-on .toggle-knob {
+      transform: translateX(12px);
+    }
+
+    .toggle-text {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
     /* ============================================================
        EMPTY STATE
        ============================================================ */
@@ -636,7 +714,7 @@
     }
 
     /* ============================================================
-       IN-APP FULLSCREEN WEB APP VIEWER
+       IN-APP FULLSCREEN WEB APP VIEWER (แสดงแค่ปุ่ม Home มุมบนซ้าย)
        ============================================================ */
     .viewer-overlay {
       position: fixed;
@@ -654,82 +732,34 @@
       opacity: 1;
     }
 
-    .viewer-toolbar {
+    /* Single Floating Home Button at Top-Left */
+    .viewer-home-btn {
       position: absolute;
-      top: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1010;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1.5px solid var(--water-cyan);
-      box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3);
-      border-radius: 30px;
-      padding: 6px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      max-width: 95vw;
-    }
-
-    .viewer-app-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding-right: 8px;
-      border-right: 1px solid rgba(56, 189, 248, 0.35);
-      white-space: nowrap;
-      max-width: 180px;
-      overflow: hidden;
-    }
-
-    .viewer-app-badge img {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      object-fit: cover;
-    }
-
-    .viewer-app-title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #0F172A;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .viewer-btn {
-      width: 32px;
-      height: 32px;
+      top: 14px;
+      left: 14px;
+      z-index: 1020;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      background: #FFFFFF;
-      color: var(--text-sub);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1.5px solid var(--water-cyan);
+      box-shadow: 0 4px 18px rgba(14, 165, 233, 0.35);
+      color: var(--water-primary);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.25rem;
       cursor: pointer;
-      font-size: 0.88rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       transition: all 0.2s ease;
-      flex-shrink: 0;
     }
 
-    .viewer-btn:hover {
+    .viewer-home-btn:hover {
       background: var(--water-vivid);
       color: #FFFFFF;
-    }
-
-    .viewer-btn.close {
-      background: #FEE2E2;
-      border-color: #FCA5A5;
-      color: #EF4444;
-    }
-
-    .viewer-btn.close:hover {
-      background: var(--danger);
-      color: #FFFFFF;
+      transform: scale(1.08);
+      box-shadow: 0 6px 24px rgba(14, 165, 233, 0.5);
     }
 
     .viewer-iframe-wrap {
@@ -775,7 +805,7 @@
     }
 
     /* ============================================================
-       MODAL: ADD / EDIT APP (Auto Favicon, No Category)
+       MODAL: ADD / EDIT APP (Auto Favicon, Toggle Switch)
        ============================================================ */
     .modal-backdrop {
       position: fixed;
@@ -908,6 +938,45 @@
       font-weight: 500;
     }
 
+    /* Modal Form Toggle Switch */
+    .modal-switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding: 12px 14px;
+      background: #F8FAFC;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 14px;
+    }
+
+    .modal-switch-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .modal-switch-sublabel {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ============================================================
+       MODAL: MAINTENANCE NOTICE (สำหรับโหมด Guest)
+       ============================================================ */
+    .maintenance-dialog {
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .maintenance-dialog i.tool-icon {
+      font-size: 2.8rem;
+      color: #F59E0B;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
     /* ============================================================
        PIN MODAL
        ============================================================ */
@@ -1028,7 +1097,7 @@
 
       .app-card {
         padding: 14px 8px 12px 8px;
-        min-height: 125px;
+        min-height: 128px;
       }
 
       .app-icon-frame {
@@ -1105,7 +1174,7 @@
   </header>
 
   <!-- ============================================================
-       MAIN CONTENT (No Search Bar, Clean App Launcher Layout)
+       MAIN CONTENT (Clean App Launcher Layout)
        ============================================================ -->
   <main class="mizuiku-main">
     
@@ -1113,7 +1182,7 @@
     <div class="admin-top-bar" id="adminTopBar" style="display: none;">
       <div class="admin-info-hint">
         <i class="bi bi-grip-vertical" style="color: var(--water-primary); font-size: 1rem;"></i>
-        <span>โหมดจัดการระบบ (สามารถลากไอคอนเพื่อจัดเรียงลำดับแอปได้)</span>
+        <span>โหมดจัดการระบบ (ลากไอคอนเพื่อเรียงลำดับ หรือแตะสวิตช์เพื่อเปิด/ปิดระบบแต่ละแอป)</span>
       </div>
       <button class="btn-water-primary" onclick="openAddAppModal()">
         <i class="bi bi-plus-lg"></i>
@@ -1129,36 +1198,14 @@
   </main>
 
   <!-- ============================================================
-       IN-APP FULLSCREEN WEB APP VIEWER
+       IN-APP FULLSCREEN WEB APP VIEWER (แสดงแค่ปุ่ม Home มุมบนซ้าย)
        ============================================================ -->
   <div class="viewer-overlay" id="viewerOverlay">
     
-    <div class="viewer-toolbar">
-      <div class="viewer-app-badge">
-        <img id="viewerAppIcon" src="" alt="icon">
-        <span class="viewer-app-title" id="viewerAppTitle">Web App</span>
-      </div>
-
-      <button class="viewer-btn" onclick="closeViewer()" title="กลับหน้าหลัก Mizuiku">
-        <i class="bi bi-house-door-fill"></i>
-      </button>
-
-      <button class="viewer-btn" onclick="reloadViewer()" title="รีเฟรชหน้าเว็บ">
-        <i class="bi bi-arrow-clockwise"></i>
-      </button>
-
-      <button class="viewer-btn" onclick="toggleViewerFullscreen()" title="สลับเต็มจอ">
-        <i class="bi bi-arrows-fullscreen"></i>
-      </button>
-
-      <button class="viewer-btn" onclick="openViewerExternal()" title="เปิดในแท็บเบราว์เซอร์ใหม่">
-        <i class="bi bi-box-arrow-up-right"></i>
-      </button>
-
-      <button class="viewer-btn close" onclick="closeViewer()" title="ปิด">
-        <i class="bi bi-x-lg"></i>
-      </button>
-    </div>
+    <!-- ONLY Home Button at Top-Left Corner -->
+    <button class="viewer-home-btn" onclick="closeViewer()" title="กลับหน้าหลัก Mizuiku">
+      <i class="bi bi-house-door-fill"></i>
+    </button>
 
     <div class="viewer-iframe-wrap">
       <div class="viewer-loading-screen" id="viewerLoader">
@@ -1171,7 +1218,7 @@
   </div>
 
   <!-- ============================================================
-       MODAL: ADD / EDIT APP (Automatic Favicon Detection, No Category)
+       MODAL: ADD / EDIT APP (Automatic Favicon Detection, Toggle Switch)
        ============================================================ -->
   <div class="modal-backdrop" id="appModal">
     <div class="modal-dialog">
@@ -1195,18 +1242,24 @@
 
         <div class="form-group">
           <label class="form-label">URL ลิงก์เข้าใช้งาน *</label>
-          <input type="url" class="form-input" id="formAppUrl" placeholder="https://..." required oninput="previewAutoFavicon(this.value)">
+          <input type="url" class="form-input" id="formAppUrl" placeholder="https://..." required oninput="handleUrlInputDebounced(this.value)">
           <div class="favicon-preview-wrap" id="faviconPreviewWrap">
             <img id="faviconPreviewImg" src="https://i.postimg.cc/d01s2X3T/MIzuiku.png" alt="Favicon" class="favicon-preview-img">
-            <div class="favicon-preview-text">ระบบจะดึง Favicon ของเว็บแอปให้อัตโนมัติ</div>
+            <div class="favicon-preview-text" id="faviconPreviewStatus">กำลังตรวจหา Favicon อัตโนมัติ...</div>
           </div>
         </div>
 
-        <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px;">
-          <label class="form-label" style="margin-bottom: 0;">สถานะการใช้งาน</label>
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; cursor: pointer;">
-            <input type="checkbox" id="formAppActive" checked style="accent-color: var(--water-primary); width: 18px; height: 18px;">
-            <span>เปิดใช้งานปกติ</span>
+        <!-- สวิตช์ เปิด/ปิด ระบบใน Modal -->
+        <div class="modal-switch-row">
+          <div>
+            <div class="modal-switch-label">สถานะระบบแอปนี้</div>
+            <div class="modal-switch-sublabel" id="modalSwitchSublabel">เปิดใช้งานตามปกติ</div>
+          </div>
+          <label style="position: relative; display: inline-block; width: 44px; height: 24px; cursor: pointer; margin-bottom: 0;">
+            <input type="checkbox" id="formAppActive" checked onchange="updateModalSwitchLabel(this.checked)" style="opacity: 0; width: 0; height: 0;">
+            <span class="custom-toggle is-on" id="modalToggleSlider" style="width: 44px; height: 24px; border-radius: 24px;">
+              <span class="toggle-knob" id="modalToggleKnob" style="width: 18px; height: 18px; top: 3px; left: 3px; transform: translateX(20px);"></span>
+            </span>
           </label>
         </div>
 
@@ -1215,6 +1268,24 @@
           <button type="submit" class="btn-water-primary" style="flex: 1.5; justify-content: center;">บันทึกข้อมูล</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL: MAINTENANCE NOTICE (แจ้งเตือนปิดปรับปรุงเมื่อ Guest กด)
+       ============================================================ -->
+  <div class="modal-backdrop" id="maintenanceModal">
+    <div class="modal-dialog maintenance-dialog">
+      <i class="bi bi-tools tool-icon"></i>
+      <div class="modal-title" style="justify-content: center; font-size: 1.25rem; margin-bottom: 8px;">
+        กำลังปรับปรุงระบบ
+      </div>
+      <p id="maintenanceNoticeText" style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.6; margin-bottom: 22px;">
+        เว็บแอปนี้อยู่ระหว่างการปรับปรุงและแก้ไขการทำงาน ขออภัยในความไม่สะดวกครับ
+      </p>
+      <button class="btn-water-primary" style="width: 100%; justify-content: center;" onclick="closeMaintenanceModal()">
+        เข้าใจแล้ว
+      </button>
     </div>
   </div>
 
@@ -1296,6 +1367,10 @@
     let touchActiveId = null;
     let isDraggingTouch = false;
 
+    // Detected favicon cache in form
+    let currentDetectedFavicon = '';
+    let faviconInputDebounceTimer = null;
+
     // ============================================================
     // INITIALIZATION
     // ============================================================
@@ -1343,26 +1418,77 @@
     }
 
     // ============================================================
-    // AUTOMATIC FAVICON EXTRACTOR
+    // ROBUST AUTOMATIC FAVICON DETECTOR
     // ============================================================
-    function extractFavicon(url) {
-      if (!url) return 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
+    async function autoDetectFavicon(targetUrl) {
+      if (!targetUrl) return 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
+      let cleanUrl = targetUrl.trim();
+      if (!/^https?:\/\//i.test(cleanUrl)) cleanUrl = 'https://' + cleanUrl;
+
+      // 1. Direct fetch HTML parsing (works directly for GitHub Pages & CORS-enabled apps)
       try {
-        let trimmed = url.trim();
-        if (!/^https?:\/\//i.test(trimmed)) {
-          trimmed = 'https://' + trimmed;
+        const res = await fetch(cleanUrl);
+        if (res.ok) {
+          const html = await res.text();
+          // Extract icon or apple-touch-icon
+          const linkMatch = html.match(/<link[^>]+(?:rel=["'](?:shortcut\s+)?(?:apple-touch-)?icon["']|href=["'][^"']+["'][^>]+rel=["'](?:shortcut\s+)?(?:apple-touch-)?icon["'])[^>]*>/i);
+          if (linkMatch) {
+            const hrefMatch = linkMatch[0].match(/href=["']([^"']+)["']/i);
+            if (hrefMatch && hrefMatch[1]) {
+              return new URL(hrefMatch[1], cleanUrl).href;
+            }
+          }
+          // Extract og:image if icon not found
+          const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+                       || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+          if (ogMatch && ogMatch[1]) {
+            return new URL(ogMatch[1], cleanUrl).href;
+          }
         }
-        const parsed = new URL(trimmed);
-        return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(parsed.origin)}&sz=128`;
       } catch (e) {
+        // Fallback to proxy
+      }
+
+      // 2. Fetch via Google Apps Script Proxy
+      try {
+        const proxyRes = await fetch(`${DEFAULT_GAS_URL}?action=detectFavicon&url=${encodeURIComponent(cleanUrl)}`);
+        if (proxyRes.ok) {
+          const proxyData = await proxyRes.json();
+          if (proxyData && proxyData.status === 'success' && proxyData.favicon) {
+            return proxyData.favicon;
+          }
+        }
+      } catch (err) {}
+
+      // 3. Fallback: targetUrl/favicon.ico
+      try {
+        const parsed = new URL(cleanUrl);
+        return parsed.origin + (parsed.pathname.length > 1 ? parsed.pathname.replace(/\/$/, '') : '') + '/favicon.ico';
+      } catch (err) {
         return 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
       }
     }
 
-    function previewAutoFavicon(val) {
+    function handleUrlInputDebounced(val) {
+      clearTimeout(faviconInputDebounceTimer);
       const previewImg = document.getElementById('faviconPreviewImg');
-      if (!previewImg) return;
-      previewImg.src = extractFavicon(val);
+      const previewStatus = document.getElementById('faviconPreviewStatus');
+      
+      if (!val || val.trim().length < 5) {
+        if (previewImg) previewImg.src = 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
+        if (previewStatus) previewStatus.textContent = 'กรอก URL เพื่อตรวจหา Favicon อัตโนมัติ';
+        currentDetectedFavicon = '';
+        return;
+      }
+
+      if (previewStatus) previewStatus.textContent = 'กำลังตรวจหา Favicon...';
+
+      faviconInputDebounceTimer = setTimeout(async () => {
+        const detected = await autoDetectFavicon(val);
+        currentDetectedFavicon = detected;
+        if (previewImg) previewImg.src = detected;
+        if (previewStatus) previewStatus.textContent = 'ดึง Favicon สำเร็จเรียบร้อย';
+      }, 350);
     }
 
     // ============================================================
@@ -1400,9 +1526,22 @@
             const localJson = localStorage.getItem(STORAGE_KEY);
             const cloudJson = JSON.stringify(cloudApps);
 
-            if (localJson !== cloudJson) {
-              localStorage.setItem(STORAGE_KEY, cloudJson);
+            // Auto-heal legacy google s2 favicon URLs
+            let healed = false;
+            for (const app of cloudApps) {
+              if (!app.icon || app.icon.includes('google.com/s2')) {
+                const detected = await autoDetectFavicon(app.url);
+                if (detected && detected !== app.icon) {
+                  app.icon = detected;
+                  healed = true;
+                }
+              }
+            }
+
+            if (localJson !== cloudJson || healed) {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudApps));
               renderApps();
+              if (healed) saveAppsToCloud(cloudApps);
             } else if (forceRender) {
               renderApps();
             }
@@ -1457,13 +1596,28 @@
       const [movedApp] = apps.splice(sourceIndex, 1);
       apps.splice(targetIndex, 0, movedApp);
 
-      // Re-assign order indices
       apps.forEach((a, idx) => { a.order = idx + 1; });
 
       showLoader();
       await saveAppsToCloud(apps);
       hideLoader();
       showToast('จัดเรียงลำดับแอปเรียบร้อยแล้ว');
+    }
+
+    // ============================================================
+    // TOGGLE APP STATUS (เปิด / ปิด ปรับปรุงระบบ)
+    // ============================================================
+    async function toggleAppActive(appId, event) {
+      if (event) event.stopPropagation();
+      let apps = getStoredApps();
+      const app = apps.find(a => a.id === appId);
+      if (!app) return;
+
+      showLoader();
+      app.active = app.active === false ? true : false;
+      await saveAppsToCloud(apps);
+      hideLoader();
+      showToast(app.active ? `เปิดใช้งานแอป "${app.name}" แล้ว` : `ปิดปรับปรุงแอป "${app.name}" ชั่วคราว`);
     }
 
     // ============================================================
@@ -1514,7 +1668,7 @@
 
       allApps.forEach(app => {
         const isMaintenance = app.active === false;
-        const iconSrc = app.icon || extractFavicon(app.url);
+        const iconSrc = app.icon || 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
 
         html += `
           <div class="app-card ${isMaintenance ? 'maintenance-card' : ''}" 
@@ -1541,6 +1695,23 @@
             </div>
             
             <div class="app-name" title="${escapeHtml(app.name)}">${escapeHtml(app.name)}</div>
+
+            ${!isAdmin && isMaintenance ? `
+              <div class="guest-maintenance-badge">
+                <i class="bi bi-tools"></i>
+                <span>ปิดปรับปรุง</span>
+              </div>
+            ` : ''}
+
+            ${isAdmin ? `
+              <div class="card-status-toggle" onclick="toggleAppActive('${app.id}', event)" title="${!isMaintenance ? 'คลิกเพื่อปิดปรับปรุงแอปนี้' : 'คลิกเพื่อเปิดใช้งานแอปนี้'}">
+                <span class="custom-toggle ${!isMaintenance ? 'is-on' : ''}">
+                  <span class="toggle-knob"></span>
+                </span>
+                <span class="toggle-text">${!isMaintenance ? 'เปิด' : 'ปิด'}</span>
+              </div>
+            ` : ''}
+
           </div>
         `;
       });
@@ -1555,9 +1726,22 @@
     }
 
     function handleCardClick(appId, event) {
-      if (event.target.closest('.admin-card-actions') || event.target.closest('.drag-grip-indicator')) {
+      if (event.target.closest('.admin-card-actions') || 
+          event.target.closest('.card-status-toggle') || 
+          event.target.closest('.drag-grip-indicator')) {
         return;
       }
+
+      const apps = getStoredApps();
+      const app = apps.find(a => a.id === appId);
+      if (!app) return;
+
+      // If app is in maintenance and clicked by Guest: Show maintenance notice
+      if (app.active === false && currentRole !== 'admin') {
+        openMaintenanceModal(app.name);
+        return;
+      }
+
       openInAppViewer(appId);
     }
 
@@ -1573,6 +1757,21 @@
     }
 
     // ============================================================
+    // MAINTENANCE MODAL (สำหรับ Guest เมื่อแอปปิดปรับปรุง)
+    // ============================================================
+    function openMaintenanceModal(appName) {
+      const textEl = document.getElementById('maintenanceNoticeText');
+      if (textEl) {
+        textEl.textContent = `เว็บแอป "${appName}" อยู่ระหว่างการปิดปรับปรุงและแก้ไขการทำงาน ขออภัยในความไม่สะดวกครับ`;
+      }
+      document.getElementById('maintenanceModal').classList.add('active');
+    }
+
+    function closeMaintenanceModal() {
+      document.getElementById('maintenanceModal').classList.remove('active');
+    }
+
+    // ============================================================
     // DRAG AND DROP HANDLERS (Desktop & Mobile Touch)
     // ============================================================
     function initDragAndDrop() {
@@ -1580,7 +1779,6 @@
       cards.forEach(card => {
         card.setAttribute('draggable', 'true');
 
-        // Desktop Drag events
         card.addEventListener('dragstart', (e) => {
           draggedAppId = card.dataset.id;
           card.classList.add('is-dragging');
@@ -1615,9 +1813,9 @@
           draggedAppId = null;
         });
 
-        // Mobile Touch Reorder events
+        // Mobile Touch Reorder
         card.addEventListener('touchstart', (e) => {
-          if (e.target.closest('.admin-card-actions')) return;
+          if (e.target.closest('.admin-card-actions') || e.target.closest('.card-status-toggle')) return;
           const touch = e.touches[0];
           touchStartX = touch.clientX;
           touchStartY = touch.clientY;
@@ -1632,7 +1830,7 @@
           const diffX = Math.abs(touch.clientX - touchStartX);
           const diffY = Math.abs(touch.clientY - touchStartY);
 
-          if (diffX > 12 || diffY > 12) {
+          if (diffX > 14 || diffY > 14) {
             isDraggingTouch = true;
             touchActiveCard.classList.add('is-dragging');
 
@@ -1671,7 +1869,7 @@
     }
 
     // ============================================================
-    // IN-APP FULLSCREEN VIEWER
+    // IN-APP FULLSCREEN VIEWER (มีเฉพาะปุ่ม Home มุมบนซ้าย)
     // ============================================================
     function openInAppViewer(appId) {
       const apps = getStoredApps();
@@ -1682,12 +1880,7 @@
 
       const overlay = document.getElementById('viewerOverlay');
       const iframe = document.getElementById('viewerIframe');
-      const title = document.getElementById('viewerAppTitle');
-      const icon = document.getElementById('viewerAppIcon');
       const loader = document.getElementById('viewerLoader');
-
-      title.textContent = app.name;
-      icon.src = app.icon || extractFavicon(app.url);
 
       loader.style.display = 'flex';
       loader.style.opacity = '1';
@@ -1715,34 +1908,8 @@
       currentViewerApp = null;
     }
 
-    function reloadViewer() {
-      const iframe = document.getElementById('viewerIframe');
-      const loader = document.getElementById('viewerLoader');
-      if (currentViewerApp && iframe) {
-        loader.style.display = 'flex';
-        loader.style.opacity = '1';
-        iframe.src = currentViewerApp.url;
-      }
-    }
-
-    function toggleViewerFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen().catch(() => {});
-        }
-      }
-    }
-
-    function openViewerExternal() {
-      if (currentViewerApp && currentViewerApp.url) {
-        window.open(currentViewerApp.url, '_blank');
-      }
-    }
-
     // ============================================================
-    // APP MODAL (ADD / EDIT - Only Name & URL, Auto Favicon)
+    // APP MODAL (ADD / EDIT)
     // ============================================================
     function openAddAppModal() {
       if (currentRole !== 'admin') {
@@ -1757,7 +1924,11 @@
       document.getElementById('formAppName').value = '';
       document.getElementById('formAppUrl').value = '';
       document.getElementById('formAppActive').checked = true;
+      updateModalSwitchLabel(true);
+      
       document.getElementById('faviconPreviewImg').src = 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
+      document.getElementById('faviconPreviewStatus').textContent = 'กรอก URL เพื่อตรวจหา Favicon อัตโนมัติ';
+      currentDetectedFavicon = '';
 
       document.getElementById('appModal').classList.add('active');
     }
@@ -1772,14 +1943,36 @@
       document.getElementById('formAppId').value = app.id;
       document.getElementById('formAppName').value = app.name || '';
       document.getElementById('formAppUrl').value = app.url || '';
-      document.getElementById('formAppActive').checked = app.active !== false;
-      document.getElementById('faviconPreviewImg').src = app.icon || extractFavicon(app.url);
+      
+      const isActive = app.active !== false;
+      document.getElementById('formAppActive').checked = isActive;
+      updateModalSwitchLabel(isActive);
+
+      currentDetectedFavicon = app.icon || '';
+      document.getElementById('faviconPreviewImg').src = app.icon || 'https://i.postimg.cc/d01s2X3T/MIzuiku.png';
+      document.getElementById('faviconPreviewStatus').textContent = 'Favicon ปัจจุบันของแอปนี้';
 
       document.getElementById('appModal').classList.add('active');
     }
 
     function closeAppModal() {
       document.getElementById('appModal').classList.remove('active');
+    }
+
+    function updateModalSwitchLabel(isChecked) {
+      const sublabel = document.getElementById('modalSwitchSublabel');
+      const slider = document.getElementById('modalToggleSlider');
+      const knob = document.getElementById('modalToggleKnob');
+      
+      if (isChecked) {
+        if (sublabel) sublabel.textContent = 'เปิดใช้งานตามปกติ (ผู้ใช้ทั่วไปเข้าถึงได้)';
+        if (slider) slider.className = 'custom-toggle is-on';
+        if (knob) knob.style.transform = 'translateX(20px)';
+      } else {
+        if (sublabel) sublabel.textContent = 'ปิดปรับปรุงระบบชั่วคราว (ผู้ใช้ทั่วไปจะเห็นการแจ้งเตือน)';
+        if (slider) slider.className = 'custom-toggle';
+        if (knob) knob.style.transform = 'translateX(0px)';
+      }
     }
 
     async function handleAppFormSubmit(e) {
@@ -1794,11 +1987,14 @@
         return;
       }
 
-      // Automatically generate favicon from URL
-      const icon = extractFavicon(url);
-
       closeAppModal();
       showLoader();
+
+      // Ensure favicon is detected
+      let icon = currentDetectedFavicon;
+      if (!icon || icon.includes('google.com/s2')) {
+        icon = await autoDetectFavicon(url);
+      }
 
       let apps = getStoredApps();
 
