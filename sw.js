@@ -1,5 +1,5 @@
 // Mizuiku Service Worker (PWA Offline & Asset Caching)
-const CACHE_NAME = 'mizuiku-cache-v11';
+const CACHE_NAME = 'mizuiku-cache-v12';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
